@@ -7,8 +7,16 @@
 
 import SwiftUI
 
+struct Recipe: Identifiable {
+    let id = UUID()
+    let Title: String
+    let Description: String
+    let Ingredients: [String]
+    let Steps: [String]
+}
+
 struct ListOfRecipes: View {
-    let recipes = [
+   @State private var recipies = [
         Recipe(
             Title: "Ham and Swiss Omelet",
             Description: "This omelet will put pep in your step all morning long.",
@@ -72,15 +80,10 @@ struct ListOfRecipes: View {
     ]
 
     var body: some View {
-        Text("Empty Text")
+        List(recipies){
+            recipie in Text(recipie.Title)
+        }
     }
-}
-
-struct Recipe {
-    let Title: String
-    let Description: String
-    let Ingredients: [String]
-    let Steps: [String]
 }
 
 #Preview {
