@@ -16,7 +16,7 @@ struct Recipe: Identifiable {
 }
 
 struct ListOfRecipes: View {
-   @State private var recipies = [
+    @State private var recipes = [
         Recipe(
             Title: "Ham and Swiss Omelet",
             Description: "This omelet will put pep in your step all morning long.",
@@ -80,8 +80,11 @@ struct ListOfRecipes: View {
     ]
 
     var body: some View {
-        List(recipies){
-            recipie in Text(recipie.Title)
+        List(recipes) {
+            recipe in VStack {
+                Text(recipe.Title)
+                Text(recipe.Description)
+            }
         }
     }
 }
