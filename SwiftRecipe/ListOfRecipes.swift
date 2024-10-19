@@ -80,12 +80,41 @@ struct ListOfRecipes: View {
     ]
 
     var body: some View {
-        List(recipes) {
-            recipe in VStack {
-                Text(recipe.Title)
-                Text(recipe.Description)
-            }
-        }
+        VStack(spacing: 0) {
+            Text("Recipes")
+                .font(.title)
+                .fontWeight(.bold)
+                .frame(
+                    width: UIScreen.main.bounds.width,
+                    height: nil
+                )
+                .padding()
+                .background(Color.blue)
+
+            List(recipes) {
+                recipe in VStack {
+                    VStack {
+                        Text("Recipe:")
+                            .font(.title)
+                            .foregroundColor(.teal)
+                        Text(recipe.Title)
+                            .font(.title2)
+                            .foregroundColor(.blue)
+                    }
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.center)
+                    .padding()
+
+                    VStack(spacing: 5) {
+                        Text("Description:")
+                            .font(.system(size: 22, weight: .medium))
+                        Text(recipe.Description)
+                            .font(.system(size: 18, weight: .regular))
+                    }
+                    .multilineTextAlignment(.center)
+                }
+            } // List End
+        } // VStack End
     }
 }
 
