@@ -91,29 +91,38 @@ struct ListOfRecipes: View {
                 .padding()
                 .background(Color.blue)
 
-            List(recipes) {
-                recipe in VStack {
-                    VStack {
-                        Text("Recipe:")
-                            .font(.title)
-                            .foregroundColor(.teal)
-                        Text(recipe.Title)
-                            .font(.title2)
-                            .foregroundColor(.blue)
+            NavigationView {
+                List(recipes) {
+                    recipe in NavigationLink(destination: RecipeDetailView(recipeDetail: recipe)) {
+                        Text("Detail View")
+                            .font(.system(size: 15))
+                            .foregroundColor(.black)
+                            .padding(5)
                     }
-                    .fontWeight(.bold)
-                    .multilineTextAlignment(.center)
-                    .padding()
 
-                    VStack(spacing: 5) {
-                        Text("Description:")
-                            .font(.system(size: 22, weight: .medium))
-                        Text(recipe.Description)
-                            .font(.system(size: 18, weight: .regular))
+                    VStack {
+                        VStack {
+                            Text("Recipe:")
+                                .font(.title)
+                                .foregroundColor(.teal)
+                            Text(recipe.Title)
+                                .font(.title2)
+                                .foregroundColor(.blue)
+                        }
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.center)
+                        .padding()
+
+                        VStack(spacing: 5) {
+                            Text("Description:")
+                                .font(.system(size: 22, weight: .medium))
+                            Text(recipe.Description)
+                                .font(.system(size: 18, weight: .regular))
+                        }
+                        .multilineTextAlignment(.center)
                     }
-                    .multilineTextAlignment(.center)
-                }
-            } // List End
+                } // List End
+            }.navigationTitle("Detail Link") // NavigationView End
         } // VStack End
     }
 }

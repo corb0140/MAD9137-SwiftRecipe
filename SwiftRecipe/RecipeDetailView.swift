@@ -8,11 +8,20 @@
 import SwiftUI
 
 struct RecipeDetailView: View {
+    var recipeDetail: Recipe
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text(recipeDetail.Title)
+        }
     }
 }
 
 #Preview {
-    RecipeDetailView()
+    RecipeDetailView(
+        recipeDetail: Recipe(Title: "Ham and Swiss Omelet",
+                             Description: "This omelet will put pep in your step all morning long.",
+                             Ingredients: ["Eggs", "Ham", "Swiss Cheese"],
+                             Steps: ["Make the eggs", "fill egg with ham and cheese", "Fold egg over the filling"])
+    )
 }
