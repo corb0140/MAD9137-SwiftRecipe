@@ -92,16 +92,6 @@ struct ListOfRecipes: View {
 
     var body: some View {
         VStack {
-            Text("Recipes")
-                .font(.title)
-                .fontWeight(.bold)
-                .frame(
-                    width: UIScreen.main.bounds.width,
-                    height: nil
-                )
-                .padding()
-                .background(Color.blue)
-
             NavigationView {
                 List(recipes) {
                     recipe in NavigationLink(destination: RecipeDetailView(recipeDetail: recipe)) {
@@ -134,7 +124,7 @@ struct ListOfRecipes: View {
                     .border(Color.black)
                     .background(Color.white)
                     .listRowSeparator(.hidden)
-                    .navigationTitle("Tap Recipe To See Full Details")
+                    .navigationTitle("Recipes")
                 } // List End
                 .listStyle(PlainListStyle())
             } // Navigation End

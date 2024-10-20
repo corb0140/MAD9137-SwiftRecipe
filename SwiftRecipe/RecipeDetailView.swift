@@ -12,8 +12,24 @@ struct RecipeDetailView: View {
 
     var body: some View {
         VStack {
+            Image(recipeDetail.Image)
+                .resizable()
+                .frame(width: .infinity, height: 350)
+
             Text(recipeDetail.Title)
+
+            Text(recipeDetail.Description)
+
+            ForEach(recipeDetail.Ingredients, id: \.self) { ingredient in
+                Text(ingredient)
+            }
+
+            ForEach(recipeDetail.Steps, id: \.self) { step in
+                Text(step)
+            }
         }
+
+        Spacer()
     }
 }
 
