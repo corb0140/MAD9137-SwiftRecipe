@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RecipeDetailView: View {
     var recipeDetail: Recipe
-//    @State var count = 0
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -24,21 +23,45 @@ struct RecipeDetailView: View {
 
                 Text(recipeDetail.Description)
 
-                HStack {
-                    ForEach(recipeDetail.Ingredients, id: \.self) { ingredient in
-                        Text(ingredient)
+                VStack(alignment: .leading) {
+                    Text("Ingredients:")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.blue)
+                        .textCase(.uppercase)
+
+                    HStack(spacing: 5) {
+                        ForEach(
+                            recipeDetail.Ingredients.indices,
+                            id: \.self
+                        ) { index in
+                            let ingredient = recipeDetail.Ingredients[index]
+                            let isLast = index == recipeDetail.Ingredients.count - 1
+                            Text("\(ingredient)\(isLast ? "." : ",")")
+                        }
+                        .font(.system(size: 20))
                     }
+                    .offset(y: 5)
                 }
 
                 VStack(alignment: .leading) {
                     Text("Steps:")
                         .font(.title)
                         .fontWeight(.bold)
+                        .foregroundColor(.blue)
+                        .textCase(.uppercase)
 
-                    ForEach(recipeDetail.Steps.indices, id: \.self) { index in
-                        Text("\(index + 1). \(recipeDetail.Steps[index])")
+                    VStack(alignment: .leading, spacing: 10) {
+                        ForEach(recipeDetail.Steps.indices, id: \.self) { index in
+                            let step = recipeDetail.Steps[index]
+                            Text("\(index + 1). \(step)")
+                        }
+                        .font(.system(size: 20))
                     }
+                    .offset(y: 5)
                 }
+
+                .padding(.top)
             }
             .padding()
         }
@@ -49,9 +72,10 @@ struct RecipeDetailView: View {
 
 #Preview {
     RecipeDetailView(
-        recipeDetail: Recipe(Title: "Ham and Swiss Omelet",
-                             Description: "This omelet will put pep in your step all morning long.",
-                             Ingredients: ["Eggs", "Ham", "Swiss Cheese"],
-                             Steps: ["Make the eggs", "fill egg with ham and cheese", "Fold egg over the filling"], Image: "Banana-Oatmeal-Pancakes")
+        recipeDetail: Recipe(  Title: "Italian Cloud Eggs",
+                               Description: "These cloud-like eggs offer you the breakfast of your dreams.",
+                               Ingredients: ["Eggs", "Italian Seasoning", "Basil", "Salt", "Pepper"],
+                               Steps: ["Preheat oven to 450º", "Beat eggs, italian seasoing, salt and pepper in bowl", "put in a iron skillet and bake for 5 minutes"],
+                               Image: "Italian-Cloud_Eggs")
     )
 }
