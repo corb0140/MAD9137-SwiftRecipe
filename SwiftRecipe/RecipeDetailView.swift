@@ -9,24 +9,38 @@ import SwiftUI
 
 struct RecipeDetailView: View {
     var recipeDetail: Recipe
+//    @State var count = 0
 
     var body: some View {
-        VStack {
-            Image(recipeDetail.Image)
-                .resizable()
-                .frame(width: .infinity, height: 350)
-
-            Text(recipeDetail.Title)
-
-            Text(recipeDetail.Description)
-
-            ForEach(recipeDetail.Ingredients, id: \.self) { ingredient in
-                Text(ingredient)
+        VStack(alignment: .leading) {
+            VStack {
+                Image(recipeDetail.Image)
+                    .resizable()
+                    .frame(width: .infinity, height: 350)
             }
 
-            ForEach(recipeDetail.Steps, id: \.self) { step in
-                Text(step)
+            VStack(alignment: .leading, spacing: 10) {
+                Text(recipeDetail.Title)
+
+                Text(recipeDetail.Description)
+
+                HStack {
+                    ForEach(recipeDetail.Ingredients, id: \.self) { ingredient in
+                        Text(ingredient)
+                    }
+                }
+
+                VStack(alignment: .leading) {
+                    Text("Steps:")
+                        .font(.title)
+                        .fontWeight(.bold)
+
+                    ForEach(recipeDetail.Steps.indices, id: \.self) { index in
+                        Text("\(index + 1). \(recipeDetail.Steps[index])")
+                    }
+                }
             }
+            .padding()
         }
 
         Spacer()
