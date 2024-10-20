@@ -18,10 +18,24 @@ struct RecipeDetailView: View {
                     .frame(width: .infinity, height: 350)
             }
 
-            VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading, spacing: 15) {
                 Text(recipeDetail.Title)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .textCase(.uppercase)
+                    .foregroundColor(.teal)
 
-                Text(recipeDetail.Description)
+                VStack(alignment: .leading) {
+                    Text("Description:")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.blue)
+                        .textCase(.uppercase)
+
+                    Text(recipeDetail.Description)
+                        .font(.system(size: 20))
+                        .offset(y: 5)
+                }
 
                 VStack(alignment: .leading) {
                     Text("Ingredients:")
@@ -30,7 +44,7 @@ struct RecipeDetailView: View {
                         .foregroundColor(.blue)
                         .textCase(.uppercase)
 
-                    HStack(spacing: 5) {
+                    HStack(alignment: .top, spacing: 5) {
                         ForEach(
                             recipeDetail.Ingredients.indices,
                             id: \.self
@@ -40,9 +54,11 @@ struct RecipeDetailView: View {
                             Text("\(ingredient)\(isLast ? "." : ",")")
                         }
                         .font(.system(size: 20))
+                        .fixedSize(horizontal: true, vertical: false)
                     }
                     .offset(y: 5)
                 }
+                .padding(.top)
 
                 VStack(alignment: .leading) {
                     Text("Steps:")
@@ -54,28 +70,30 @@ struct RecipeDetailView: View {
                     VStack(alignment: .leading, spacing: 10) {
                         ForEach(recipeDetail.Steps.indices, id: \.self) { index in
                             let step = recipeDetail.Steps[index]
-                            Text("\(index + 1). \(step)")
+
+                            HStack(alignment: .top) {
+                                Text("\(index + 1).")
+                                Text("\(step)")
+                            }
+                            .font(.system(size: 20))
                         }
-                        .font(.system(size: 20))
                     }
                     .offset(y: 5)
                 }
-
                 .padding(.top)
             }
             .padding()
         }
-
         Spacer()
     }
 }
 
 #Preview {
     RecipeDetailView(
-        recipeDetail: Recipe(  Title: "Italian Cloud Eggs",
-                               Description: "These cloud-like eggs offer you the breakfast of your dreams.",
-                               Ingredients: ["Eggs", "Italian Seasoning", "Basil", "Salt", "Pepper"],
-                               Steps: ["Preheat oven to 450º", "Beat eggs, italian seasoing, salt and pepper in bowl", "put in a iron skillet and bake for 5 minutes"],
-                               Image: "Italian-Cloud_Eggs")
+        recipeDetail: Recipe(Title: "Italian Cloud Eggs",
+                             Description: "These cloud-like eggs offer you the breakfast of your dreams.",
+                             Ingredients: ["Eggs", "Italian Seasoning", "Basil", "Salt", "Pepper"],
+                             Steps: ["Preheat oven to 450º", "Beat eggs, italian seasoing, salt and pepper in bowl", "put in a iron skillet and bake for 5 minutes"],
+                             Image: "Italian-Cloud_Eggs")
     )
 }
