@@ -120,6 +120,7 @@ struct ListOfRecipes: View {
                             Image(recipe.Image)
                                 .resizable()
                                 .frame(width: .infinity, height: 200)
+                                .shadow(color: .gray, radius: 5, x: 0, y: 5)
 
                             VStack(alignment: .leading, spacing: 5) {
                                 Text("Description:")
@@ -130,8 +131,9 @@ struct ListOfRecipes: View {
                         }
                     }
                     .padding()
-                    .listRowSeparator(.hidden)
                     .border(Color.black)
+                    .background(Color.white)
+                    .listRowSeparator(.hidden)
                     .navigationTitle("Tap Recipe To See Full Details")
                 } // List End
                 .listStyle(PlainListStyle())
