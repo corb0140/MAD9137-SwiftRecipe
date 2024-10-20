@@ -22,6 +22,6 @@ struct RecipeDetailView: View {
         recipeDetail: Recipe(Title: "Ham and Swiss Omelet",
                              Description: "This omelet will put pep in your step all morning long.",
                              Ingredients: ["Eggs", "Ham", "Swiss Cheese"],
-                             Steps: ["Make the eggs", "fill egg with ham and cheese", "Fold egg over the filling"])
+                             Steps: ["Make the eggs", "fill egg with ham and cheese", "Fold egg over the filling"], Image: "Banana-Oatmeal-Pancakes")
     )
 }
