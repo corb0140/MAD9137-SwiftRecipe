@@ -8,6 +8,15 @@
 import SwiftUICore
 import UIKit
 
+struct Recipe: Identifiable, Hashable {
+    let id = UUID()
+    let Title: String
+    let Description: String
+    let Ingredients: [String]
+    let Steps: [String]
+    let Image: String
+}
+
 var recipesArray = [
     Recipe(
         Title: "Pineapple Coconut Smoothie",

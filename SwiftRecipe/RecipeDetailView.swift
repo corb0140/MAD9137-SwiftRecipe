@@ -52,7 +52,7 @@ struct RecipeDetailView: View {
                             .foregroundColor(.blue)
                             .textCase(.uppercase)
                             
-                        HStack(alignment: .top, spacing: 5) {
+                        VStack(alignment: .leading, spacing: 5) {
                             ForEach(
                                 recipeDetail.Ingredients.indices,
                                 id: \.self

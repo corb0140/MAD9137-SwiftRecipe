@@ -28,9 +28,15 @@ struct AddRecipe: View {
                 VStack(spacing: 15) {
                     TextField("Title", text: $title)
                     TextField("Description", text: $description)
-
+                    
+                    // Add Ingredient
                     VStack(alignment: .leading) {
                         TextField("Ingredient", text: $ingredient)
+                        ForEach(ingredients, id: \.self) { i in
+                            HStack {
+                                Text(i)
+                            }
+                        }
                         Button(action: {
                             if !ingredient.isEmpty {
                                 ingredients.append(ingredient)
@@ -40,9 +46,15 @@ struct AddRecipe: View {
                             Text("Add Ingredient")
                         }
                     }
-
+                    
+                    // Add Step
                     VStack(alignment: .leading) {
                         TextField("Step", text: $step)
+                        ForEach(steps, id: \.self) { i in
+                            HStack {
+                                Text(i)
+                            }
+                        }
                         Button(action: {
                             if !step.isEmpty {
                                 steps.append(step)
@@ -52,10 +64,11 @@ struct AddRecipe: View {
                             Text("Add Step")
                         }
                     }
-
+                    
+                    // Image
                     VStack(alignment: .leading, spacing: 30) {
                         TextField("Image Url", text: $imageUrl)
-
+                        
                         if isSelected == true {
                             if let url = URL(string: imageUrl), !imageUrl.isEmpty {
                                 AsyncImage(url: url) {
@@ -71,24 +84,47 @@ struct AddRecipe: View {
                                 }
                             }
                         }
-
-                        Button(action: {
-                            if isSelected == false {
-                                isSelected = true
-                            } else {
-                                isSelected = false
-                            }
-                        }) {
-                            Text("View Image")
-                                .font(.subheadline)
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(5)
-                        }
                     }
                 }
+            } // Form end
+            
+            // View Image Button
+            Button(action: {
+                isSelected.toggle()
+            }) {
+                Text("View Image")
+                    .font(.subheadline)
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(5)
             }
+            
+            Button(
+                action: {
+                    let newRecipe = Recipe(
+                        Title: title,
+                        Description: description,
+                        Ingredients: ingredients,
+                        Steps: steps,
+                        Image: imageUrl
+                    )
+                    
+                    recipesArray.append(newRecipe)
+                    
+                    title = ""
+                    description = ""
+                    ingredients = []
+                    steps = []
+                    imageUrl = ""
+                }) {
+                    Text("Add Recipe")
+                        .font(.subheadline)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(5)
+                }
         }
     }
 }
