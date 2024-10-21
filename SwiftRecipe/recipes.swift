@@ -5,8 +5,7 @@
 //  Created by Mark Corbin on 2024-10-20.
 //
 
-import SwiftUICore
-import UIKit
+import SwiftUI
 
 struct Recipe: Identifiable, Hashable {
     let id = UUID()
@@ -17,7 +16,7 @@ struct Recipe: Identifiable, Hashable {
     let Image: String
 }
 
-var recipesArray = [
+var recipesArray: [Recipe] = [
     Recipe(
         Title: "Pineapple Coconut Smoothie",
         Description: "If you're a fan of tropical flavors, you will love this pineapple coconut smoothie recipe.",

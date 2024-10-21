@@ -10,6 +10,10 @@ import SwiftUI
 struct ListOfRecipes: View {
     @State private var recipes = recipesArray
 
+    func addRecipe(_ recipe: Recipe) {
+        recipes.append(recipe)
+    }
+
     var body: some View {
         VStack {
             NavigationView {
@@ -55,7 +59,9 @@ struct ListOfRecipes: View {
                     .listStyle(PlainListStyle())
 
                     VStack {
-                        NavigationLink(destination: AddRecipe()) {
+                        NavigationLink(
+                            destination: AddRecipe(addRecipe: addRecipe)
+                        ) {
                             Text("Add New Recipe")
                                 .font(.title2)
                                 .foregroundColor(.white)

@@ -5,10 +5,11 @@
 //  Created by Mark Corbin on 2024-10-19.
 //
 
-import PhotosUI
 import SwiftUI
 
 struct AddRecipe: View {
+    var addRecipe: (Recipe) -> Void
+
     @State private var title: String = ""
     @State private var description: String = ""
     @State private var ingredient: String = ""
@@ -110,7 +111,7 @@ struct AddRecipe: View {
                         Image: imageUrl
                     )
                     
-                    recipesArray.append(newRecipe)
+                    addRecipe(newRecipe)
                     
                     title = ""
                     description = ""
@@ -130,5 +131,5 @@ struct AddRecipe: View {
 }
 
 #Preview {
-    AddRecipe()
+    AddRecipe { _ in print("Testing") }
 }
