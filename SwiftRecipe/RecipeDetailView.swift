@@ -16,6 +16,7 @@ struct RecipeDetailView: View {
                 Image(recipeDetail.Image)
                     .resizable()
                     .frame(width: .infinity, height: 350)
+                    .clipped()
             }
             ScrollView {
                 VStack(alignment: .leading, spacing: 15) {

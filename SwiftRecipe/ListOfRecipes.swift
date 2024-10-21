@@ -39,6 +39,7 @@ struct ListOfRecipes: View {
                             Image(recipe.Image)
                                 .resizable()
                                 .frame(width: .infinity, height: 200)
+                                .clipped()
                                 .shadow(color: .gray, radius: 5, x: 0, y: 5)
 
                             VStack(alignment: .leading, spacing: 5) {
