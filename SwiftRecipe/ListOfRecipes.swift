@@ -36,11 +36,15 @@ struct ListOfRecipes: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .fontWeight(.bold)
 
-                            Image(recipe.Image)
-                                .resizable()
-                                .frame(width: .infinity, height: 200)
-                                .clipped()
-                                .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                            AsyncImage(url: URL(string: recipe.Image)) {
+                                image in
+                                image.resizable()
+                                    .frame(width: .infinity, height: 200)
+                                    .clipped()
+                                    .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                            } placeholder: {
+                                ProgressView()
+                            }
 
                             VStack(alignment: .leading, spacing: 5) {
                                 Text("Description:")
