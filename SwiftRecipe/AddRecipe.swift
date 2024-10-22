@@ -26,7 +26,7 @@ struct AddRecipe: View {
                 .fontWeight(.bold)
                 .foregroundColor(.teal)
             ) {
-                VStack(spacing: 15) {
+                VStack(spacing: 25) {
                     TextField("Title", text: $title)
                     TextField("Description", text: $description)
                     
@@ -65,7 +65,7 @@ struct AddRecipe: View {
                             Text("Add Step")
                         }
                     }
-                    
+                  
                     // Image
                     VStack(alignment: .leading, spacing: 30) {
                         TextField("Image Url", text: $imageUrl)
@@ -100,7 +100,7 @@ struct AddRecipe: View {
                     .foregroundColor(.white)
                     .cornerRadius(5)
             }
-            
+           
             Button(
                 action: {
                     let newRecipe = Recipe(

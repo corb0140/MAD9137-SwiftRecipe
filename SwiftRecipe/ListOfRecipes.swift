@@ -14,12 +14,23 @@ struct ListOfRecipes: View {
         recipes.append(recipe)
     }
 
+    func deleteRecipe(_ recipe: Recipe) {
+        recipes = recipes.filter { $0.id != recipe.id }
+    }
+
     var body: some View {
         VStack {
             NavigationView {
                 VStack {
                     List(recipes) {
-                        recipe in NavigationLink(destination: RecipeDetailView(recipeDetail: recipe)) {
+                        recipe in NavigationLink(
+                            destination: RecipeDetailView(
+                                recipeDetail: recipe,
+                                delete: {
+                                    deleteRecipe(recipe)
+                                }
+                            )
+                        ) {
                             VStack(alignment: .leading, spacing: 20) {
                                 VStack(alignment: .leading) {
                                     Text("Recipe:")

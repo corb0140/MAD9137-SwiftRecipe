@@ -9,7 +9,9 @@ import SwiftUI
 
 struct RecipeDetailView: View {
     var recipeDetail: Recipe
-
+    
+    var delete: () -> Void
+    
     var body: some View {
         VStack(alignment: .leading) {
             VStack {
@@ -90,6 +92,17 @@ struct RecipeDetailView: View {
                     .padding(.top)
                 } // VStack end for Info
                 .padding()
+                
+                Button(action: {
+                    delete()
+                }) {
+                    Text("Delete Recipe")
+                        .font(.title2)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.red)
+                        .cornerRadius(10)
+                }
             } // Scrollview End
         } // First VStack end
         
@@ -103,5 +116,9 @@ struct RecipeDetailView: View {
                              Description: "A sweet and tangy beverage to take on the go",
                              Ingredients: ["Lemonade", "Lemon Yogurt", "Frozen Strawberries"],
                              Steps: ["Place all ingredients in a blender", "cover and process 15 seconds or until blended", "Serve immediately"],
-                             Image: "https://www.thespruceeats.com/thmb/sFNQ8AqRurVo28e4Xosj9bTdMyY=/425x300/filters:max_bytes(150000):strip_icc():format(webp)/strawberry-breakfast-smoothie-recipe-2097149-hero-02-5c1d4b2a46e0fb00014bf2ec.jpg"))
+                             Image: "https://www.thespruceeats.com/thmb/sFNQ8AqRurVo28e4Xosj9bTdMyY=/425x300/filters:max_bytes(150000):strip_icc():format(webp)/strawberry-breakfast-smoothie-recipe-2097149-hero-02-5c1d4b2a46e0fb00014bf2ec.jpg"),
+        delete: {
+            print("Testing")
+        }
+    )
 }
