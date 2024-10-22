@@ -10,11 +10,13 @@ import SwiftUI
 struct RecipeDetailView: View {
     var recipeDetail: Recipe
     
+    @State private var showActionSheet: Bool = false
     var delete: () -> Void
     
     var body: some View {
         VStack(alignment: .leading) {
             VStack {
+                // Image
                 AsyncImage(url: URL(string: recipeDetail.Image)) {
                     image in
                     image.resizable()
@@ -27,6 +29,7 @@ struct RecipeDetailView: View {
                 }
             }
                 
+            // Scrollview
             ScrollView {
                 VStack(alignment: .leading, spacing: 15) {
                     Text(recipeDetail.Title)
@@ -35,6 +38,7 @@ struct RecipeDetailView: View {
                         .textCase(.uppercase)
                         .foregroundColor(.teal)
                         
+                    // Description
                     VStack(alignment: .leading) {
                         Text("Description:")
                             .font(.title2)
@@ -46,7 +50,8 @@ struct RecipeDetailView: View {
                             .font(.system(size: 20))
                             .offset(y: 5)
                     }
-                        
+                    
+                    // Ingredients
                     VStack(alignment: .leading) {
                         Text("Ingredients:")
                             .font(.title2)
@@ -68,7 +73,8 @@ struct RecipeDetailView: View {
                         .offset(y: 5)
                     }
                     .padding(.top)
-                        
+                    
+                    // Steps
                     VStack(alignment: .leading) {
                         Text("Steps:")
                             .font(.title2)
@@ -93,15 +99,28 @@ struct RecipeDetailView: View {
                 } // VStack end for Info
                 .padding()
                 
-                Button(action: {
-                    delete()
-                }) {
-                    Text("Delete Recipe")
-                        .font(.title2)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.red)
-                        .cornerRadius(10)
+                // Delete Recipe Button
+                Button("Delete Recipe") {
+                    showActionSheet = true
+                }
+                .font(.title2)
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.red)
+                .cornerRadius(10)
+                .actionSheet(isPresented: $showActionSheet) {
+                    ActionSheet(
+                        title: Text("Delete Recipe"),
+                        message: Text(
+                            "Are you sure you want to delete this recipe?"
+                        ),
+                        buttons: [
+                            .destructive(Text("Delete")) {
+                                delete()
+                            },
+                            .cancel(Text("Cancel"))
+                        ]
+                    )
                 }
             } // Scrollview End
         } // First VStack end
