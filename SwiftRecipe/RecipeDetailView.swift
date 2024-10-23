@@ -66,9 +66,10 @@ struct RecipeDetailView: View {
                             ) { index in
                                 let ingredient = recipeDetail.Ingredients[index]
                                 let isLast = index == recipeDetail.Ingredients.count - 1
+                                
                                 Text("\(ingredient)\(isLast ? "." : ",")")
+                                    .font(.system(size: 20))
                             }
-                            .font(.system(size: 20))
                         }
                         .offset(y: 5)
                     }
