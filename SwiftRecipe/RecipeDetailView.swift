@@ -121,7 +121,8 @@ struct RecipeDetailView: View {
                     .sheet(isPresented: $showEditView) {
                         EditRecipe(
                             recipeDetail: recipeDetail,
-                            editRecipe: editRecipe
+                            editRecipe: editRecipe,
+                            showEditView: $showEditView
                         )
                     }
                     

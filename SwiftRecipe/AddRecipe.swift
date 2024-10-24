@@ -77,7 +77,7 @@ struct AddRecipe: View {
                                     if let image = selectedUrl.image {
                                         image
                                             .resizable()
-                                            .frame(width: .infinity, height: 350)
+                                            .frame(width: .infinity, height: 200)
                                             .clipped()
                                     } else {
                                         Text("Loading Image ...")
