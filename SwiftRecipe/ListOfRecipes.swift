@@ -44,7 +44,7 @@ struct ListOfRecipes: View {
                     }
                     .frame(height: 120)
                     .padding()
-                    
+
                     List(filteredRecipes) {
                         recipe in NavigationLink(
                             destination: RecipeDetailView(

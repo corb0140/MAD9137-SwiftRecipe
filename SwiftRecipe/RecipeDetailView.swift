@@ -10,7 +10,15 @@ import SwiftUI
 struct RecipeDetailView: View {
     var recipeDetail: Recipe
     
+    @State private var showEditView: Bool = false
     @State private var showActionSheet: Bool = false
+
+    func editRecipe(_ recipe: Recipe) {
+        if let index = recipesArray.firstIndex(where: { $0.id == recipeDetail.id }) {
+            recipesArray[index] = recipe
+        }
+    }
+    
     var delete: () -> Void
     
     var body: some View {
@@ -100,29 +108,47 @@ struct RecipeDetailView: View {
                 } // VStack end for Info
                 .padding()
                 
-                // Delete Recipe Button
-                Button("Delete Recipe") {
-                    showActionSheet = true
-                }
-                .font(.title2)
-                .foregroundColor(.white)
-                .padding()
-                .background(Color.red)
-                .cornerRadius(10)
-                .actionSheet(isPresented: $showActionSheet) {
-                    ActionSheet(
-                        title: Text("Delete Recipe"),
-                        message: Text(
-                            "Are you sure you want to delete this recipe?"
-                        ),
-                        buttons: [
-                            .destructive(Text("Delete")) {
-                                delete()
-                            },
-                            .cancel(Text("Cancel"))
-                        ]
-                    )
-                }
+                HStack {
+                    // Edit Recipe button
+                    Button("Edit Recipe") {
+                        showEditView = true
+                    }
+                    .font(.title2)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.green)
+                    .cornerRadius(10)
+                    .sheet(isPresented: $showEditView) {
+                        EditRecipe(
+                            recipeDetail: recipeDetail,
+                            editRecipe: editRecipe
+                        )
+                    }
+                    
+                    // Delete Recipe Button
+                    Button("Delete Recipe") {
+                        showActionSheet = true
+                    }
+                    .font(.title2)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.red)
+                    .cornerRadius(10)
+                    .actionSheet(isPresented: $showActionSheet) {
+                        ActionSheet(
+                            title: Text("Delete Recipe"),
+                            message: Text(
+                                "Are you sure you want to delete this recipe?"
+                            ),
+                            buttons: [
+                                .destructive(Text("Delete")) {
+                                    delete()
+                                },
+                                .cancel(Text("Cancel"))
+                            ]
+                        )
+                    }
+                } // Button HStack
             } // Scrollview End
         } // First VStack end
         
@@ -138,7 +164,7 @@ struct RecipeDetailView: View {
                              Steps: ["Place all ingredients in a blender", "cover and process 15 seconds or until blended", "Serve immediately"],
                              Image: "https://www.thespruceeats.com/thmb/sFNQ8AqRurVo28e4Xosj9bTdMyY=/425x300/filters:max_bytes(150000):strip_icc():format(webp)/strawberry-breakfast-smoothie-recipe-2097149-hero-02-5c1d4b2a46e0fb00014bf2ec.jpg"),
         delete: {
-            print("Testing")
+            print("delete testing")
         }
     )
 }
