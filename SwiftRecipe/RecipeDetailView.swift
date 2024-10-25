@@ -8,15 +8,13 @@
 import SwiftUI
 
 struct RecipeDetailView: View {
-    var recipeDetail: Recipe
+    @State var recipeDetail: Recipe
     
     @State private var showEditView: Bool = false
     @State private var showActionSheet: Bool = false
 
-    func editRecipe(_ recipe: Recipe) {
-        if let index = recipesArray.firstIndex(where: { $0.id == recipeDetail.id }) {
-            recipesArray[index] = recipe
-        }
+    func editRecipe(_ updatedRecipe: Recipe) {
+        recipeDetail = updatedRecipe
     }
     
     var delete: () -> Void

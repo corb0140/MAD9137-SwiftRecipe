@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct EditRecipe: View {
-    var recipeDetail: Recipe
+    @State var recipeDetail: Recipe
     var editRecipe: (Recipe) -> Void
+    @Binding var showEditView: Bool
     
     @State private var title: String
     @State private var description: String
@@ -18,7 +19,7 @@ struct EditRecipe: View {
     @State private var imageUrl: String
     @State private var ingredient = ""
     @State private var step = ""
-    @Binding var showEditView: Bool
+  
 
     init(recipeDetail: Recipe, editRecipe: @escaping (Recipe) -> Void, showEditView: Binding<Bool>) {
         self.recipeDetail = recipeDetail
