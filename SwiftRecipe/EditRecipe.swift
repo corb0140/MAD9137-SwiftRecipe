@@ -20,7 +20,6 @@ struct EditRecipe: View {
     @State private var ingredient = ""
     @State private var step = ""
   
-
     init(recipeDetail: Recipe, editRecipe: @escaping (Recipe) -> Void, showEditView: Binding<Bool>) {
         self.recipeDetail = recipeDetail
         self.editRecipe = editRecipe
@@ -47,9 +46,17 @@ struct EditRecipe: View {
                         // Add Ingredient
                         VStack(alignment: .leading) {
                             TextField("Ingredient", text: $ingredient)
-                            ForEach(ingredients, id: \.self) { i in
+                            ForEach(ingredients.indices, id: \.self) { index in
                                 HStack {
-                                    Text(i)
+                                    Text(ingredients[index])
+                                    
+                                    Spacer()
+                                    
+                                    Button(action: {
+                                        ingredients.remove(at: index)
+                                    }) {
+                                        Text("Remove").foregroundColor(.red)
+                                    }
                                 }
                             }
                             Button(action: {
@@ -59,15 +66,28 @@ struct EditRecipe: View {
                                 }
                             }) {
                                 Text("Add Ingredient")
+                                    .foregroundColor(.white)
+                                    .padding(9)
                             }
+                            .background(Color.blue)
+                            .cornerRadius(5)
+                            .buttonStyle(BorderedButtonStyle())
                         }
                         
                         // Add Step
                         VStack(alignment: .leading) {
                             TextField("Step", text: $step)
-                            ForEach(steps, id: \.self) { i in
+                            ForEach(steps.indices, id: \.self) { index in
                                 HStack {
-                                    Text(i)
+                                    Text(steps[index])
+                                    
+                                    Spacer()
+                                    
+                                    Button(action: {
+                                        steps.remove(at: index)
+                                    }) {
+                                        Text("Remove").foregroundColor(.red)
+                                    }
                                 }
                             }
                             Button(action: {
@@ -77,7 +97,12 @@ struct EditRecipe: View {
                                 }
                             }) {
                                 Text("Add Step")
+                                    .foregroundColor(.white)
+                                    .padding(9)
                             }
+                            .background(Color.blue)
+                            .cornerRadius(5)
+                            .buttonStyle(BorderedButtonStyle())
                         }
                         
                         // Image
@@ -122,7 +147,7 @@ struct EditRecipe: View {
                     }) {
                         Text("Update Recipe")
                             .font(.subheadline)
-                            .padding()
+                            .padding(25)
                             .background(Color.blue)
                             .foregroundColor(.white)
                             .cornerRadius(5)

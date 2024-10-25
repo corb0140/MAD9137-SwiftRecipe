@@ -33,11 +33,20 @@ struct AddRecipe: View {
                     // Add Ingredient
                     VStack(alignment: .leading) {
                         TextField("Ingredient", text: $ingredient)
-                        ForEach(ingredients, id: \.self) { i in
+                        ForEach(ingredients.indices, id: \.self) { index in
                             HStack {
-                                Text(i)
+                                Text(ingredients[index])
+                                
+                                Spacer()
+                                
+                                Button(action: {
+                                    ingredients.remove(at: index)
+                                }) {
+                                    Text("Remove").foregroundColor(.red)
+                                }
                             }
                         }
+                      
                         Button(action: {
                             if !ingredient.isEmpty {
                                 ingredients.append(ingredient)
@@ -45,17 +54,31 @@ struct AddRecipe: View {
                             }
                         }) {
                             Text("Add Ingredient")
+                                .foregroundColor(.white)
+                                .padding(9)
                         }
+                        .background(Color.blue)
+                        .cornerRadius(5)
+                        .buttonStyle(BorderedButtonStyle())
                     }
                     
                     // Add Step
                     VStack(alignment: .leading) {
                         TextField("Step", text: $step)
-                        ForEach(steps, id: \.self) { i in
+                        ForEach(steps.indices, id: \.self) { index in
                             HStack {
-                                Text(i)
+                                Text(steps[index])
+                                
+                                Spacer()
+                                
+                                Button(action: {
+                                    steps.remove(at: index)
+                                }) {
+                                    Text("Remove").foregroundColor(.red)
+                                }
                             }
                         }
+                     
                         Button(action: {
                             if !step.isEmpty {
                                 steps.append(step)
@@ -63,7 +86,12 @@ struct AddRecipe: View {
                             }
                         }) {
                             Text("Add Step")
+                                .foregroundColor(.white)
+                                .padding(9)
                         }
+                        .background(Color.blue)
+                        .cornerRadius(5)
+                        .buttonStyle(BorderedButtonStyle())
                     }
                   
                     // Image
