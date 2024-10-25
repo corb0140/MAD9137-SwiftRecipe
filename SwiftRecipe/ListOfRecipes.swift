@@ -30,6 +30,7 @@ struct ListOfRecipes: View {
 
     var body: some View {
         VStack {
+            // Navigation View
             NavigationView {
                 VStack {
                     Form {
@@ -39,12 +40,14 @@ struct ListOfRecipes: View {
                             .foregroundColor(.teal)
 
                         ) {
-                            TextField("Name", text: $filterByName)
+                            // Filter Recipes
+                            TextField("Recipe Name", text: $filterByName)
                         }
                     }
                     .frame(height: 120)
                     .padding()
 
+                    // List of Recipes
                     List(filteredRecipes) {
                         recipe in NavigationLink(
                             destination: RecipeDetailView(
@@ -55,6 +58,7 @@ struct ListOfRecipes: View {
                             )
                         ) {
                             VStack(alignment: .leading, spacing: 20) {
+                                // Title
                                 VStack(alignment: .leading) {
                                     Text("Recipe:")
                                         .font(.title)
@@ -66,6 +70,7 @@ struct ListOfRecipes: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .fontWeight(.bold)
 
+                                // Image
                                 AsyncImage(url: URL(string: recipe.Image)) {
                                     image in
                                     image.resizable()
@@ -76,6 +81,7 @@ struct ListOfRecipes: View {
                                     ProgressView()
                                 }
 
+                                // Description
                                 VStack(alignment: .leading, spacing: 5) {
                                     Text("Description:")
                                         .font(.system(size: 22, weight: .medium))
@@ -92,6 +98,7 @@ struct ListOfRecipes: View {
                     } // List End
                     .listStyle(PlainListStyle())
 
+                    // Add Recipe Navigation Link
                     VStack {
                         NavigationLink(
                             destination: AddRecipe(addRecipe: addRecipe)
@@ -103,7 +110,7 @@ struct ListOfRecipes: View {
                                 .background(Color.blue)
                                 .cornerRadius(10)
                         }
-                    } //  Add Recipe VStack End
+                    }
                 } // Inside Navigation VStack End
             } // Navigation End
         } // Outside Navigation VStack End
