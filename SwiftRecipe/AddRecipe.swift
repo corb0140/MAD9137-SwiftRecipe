@@ -27,18 +27,39 @@ struct AddRecipe: View {
                 .foregroundColor(.teal)
             ) {
                 VStack(spacing: 25) {
-                    TextField("Title", text: $title)
-                    TextField("Description", text: $description)
+                    VStack(alignment: .leading, spacing: 15) {
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text("Title:")
+                                .font(.title3)
+                                .foregroundColor(.gray)
+                            TextField("Title", text: $title)
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text("Description:")
+                                .font(.title3)
+                                .foregroundColor(.gray)
+                            TextField("Description", text: $description)
+                        }
+                    }
                     
-                    // Add Ingredient
+                    // Ingredients
                     VStack(alignment: .leading) {
                         TextField("Ingredient", text: $ingredient)
+                            .padding(10)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(Color.gray, lineWidth: 1)
+                            )
+                        
+                        // See Ingredients Currently In Array
                         ForEach(ingredients.indices, id: \.self) { index in
                             HStack {
                                 Text(ingredients[index])
                                 
                                 Spacer()
                                 
+                                // Remove Ingredient
                                 Button(action: {
                                     ingredients.remove(at: index)
                                 }) {
@@ -62,15 +83,23 @@ struct AddRecipe: View {
                         .buttonStyle(BorderedButtonStyle())
                     }
                     
-                    // Add Step
+                    // Steps
                     VStack(alignment: .leading) {
                         TextField("Step", text: $step)
+                            .padding(10)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(Color.gray, lineWidth: 1)
+                            )
+                        
+                        // See Steps Currently In Array
                         ForEach(steps.indices, id: \.self) { index in
                             HStack {
                                 Text(steps[index])
                                 
                                 Spacer()
                                 
+                                // Remove Item
                                 Button(action: {
                                     steps.remove(at: index)
                                 }) {
@@ -79,6 +108,7 @@ struct AddRecipe: View {
                             }
                         }
                      
+                        // Add Ingredient Button
                         Button(action: {
                             if !step.isEmpty {
                                 steps.append(step)
@@ -115,7 +145,7 @@ struct AddRecipe: View {
                         }
                     }
                 }
-            } // Form end
+            }
             
             // View Image Button
             Button(action: {
@@ -129,6 +159,7 @@ struct AddRecipe: View {
                     .cornerRadius(5)
             }
            
+            // Add Recipe button
             Button(
                 action: {
                     let newRecipe = Recipe(

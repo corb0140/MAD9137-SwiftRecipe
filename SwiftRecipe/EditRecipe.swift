@@ -40,25 +40,49 @@ struct EditRecipe: View {
                     .foregroundColor(.teal)
                 ) {
                     VStack(spacing: 25) {
-                        TextField("Title", text: $title)
-                        TextField("Description", text: $description)
+                        VStack(alignment: .leading, spacing: 15) {
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text("Title:")
+                                    .font(.title3)
+                                    .foregroundColor(.gray)
+                                TextField("Title", text: $title)
+                            }
+                            
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text("Description:")
+                                    .font(.title3)
+                                    .foregroundColor(.gray)
+                                TextField("Description", text: $description)
+                            }
+                        }
                         
-                        // Add Ingredient
+                        // Ingredients
                         VStack(alignment: .leading) {
                             TextField("Ingredient", text: $ingredient)
-                            ForEach(ingredients.indices, id: \.self) { index in
-                                HStack {
-                                    Text(ingredients[index])
+                                .padding(10)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .stroke(Color.gray, lineWidth: 1)
+                                )
+                                
+                            
+                                // See Ingredients Currently In Array
+                                ForEach(ingredients.indices, id: \.self) { index in
+                                    HStack {
+                                        Text(ingredients[index])
                                     
-                                    Spacer()
+                                        Spacer()
                                     
-                                    Button(action: {
-                                        ingredients.remove(at: index)
-                                    }) {
-                                        Text("Remove").foregroundColor(.red)
+                                        // Remove Ingredient
+                                        Button(action: {
+                                            ingredients.remove(at: index)
+                                        }) {
+                                            Text("Remove").foregroundColor(.red)
+                                        }
                                     }
                                 }
-                            }
+                            
+                            // Add Ingredient
                             Button(action: {
                                 if !ingredient.isEmpty {
                                     ingredients.append(ingredient)
@@ -74,15 +98,23 @@ struct EditRecipe: View {
                             .buttonStyle(BorderedButtonStyle())
                         }
                         
-                        // Add Step
+                        // Step
                         VStack(alignment: .leading) {
                             TextField("Step", text: $step)
+                                .padding(10)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .stroke(Color.gray, lineWidth: 1)
+                                )
+                            
+                            // See Steps Currently In Array
                             ForEach(steps.indices, id: \.self) { index in
                                 HStack {
                                     Text(steps[index])
                                     
                                     Spacer()
                                     
+                                    // Remove Step
                                     Button(action: {
                                         steps.remove(at: index)
                                     }) {
@@ -90,6 +122,8 @@ struct EditRecipe: View {
                                     }
                                 }
                             }
+                            
+                            // Add Step
                             Button(action: {
                                 if !step.isEmpty {
                                     steps.append(step)
@@ -124,7 +158,7 @@ struct EditRecipe: View {
                             }
                         }
                     }
-                } // Form end
+                }
                 
                 Button(
                     action: {
@@ -139,11 +173,6 @@ struct EditRecipe: View {
                         editRecipe(updatedRecipe)
                         showEditView = false
                         
-//                        title = ""
-//                        description = ""
-//                        ingredients = []
-//                        steps = []
-//                        imageUrl = ""
                     }) {
                         Text("Update Recipe")
                             .font(.subheadline)
