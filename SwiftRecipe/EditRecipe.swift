@@ -65,22 +65,21 @@ struct EditRecipe: View {
                                         .stroke(Color.gray, lineWidth: 1)
                                 )
                                 
-                            
-                                // See Ingredients Currently In Array
-                                ForEach(ingredients.indices, id: \.self) { index in
-                                    HStack {
-                                        Text(ingredients[index])
+                            // See Ingredients Currently In Array
+                            ForEach(ingredients.indices, id: \.self) { index in
+                                HStack {
+                                    Text(ingredients[index])
                                     
-                                        Spacer()
+                                    Spacer()
                                     
-                                        // Remove Ingredient
-                                        Button(action: {
-                                            ingredients.remove(at: index)
-                                        }) {
-                                            Text("Remove").foregroundColor(.red)
-                                        }
+                                    // Remove Ingredient
+                                    Button(action: {
+                                        ingredients.remove(at: index)
+                                    }) {
+                                        Text("Remove").foregroundColor(.red)
                                     }
                                 }
+                            }
                             
                             // Add Ingredient
                             Button(action: {
@@ -143,18 +142,15 @@ struct EditRecipe: View {
                         VStack(alignment: .leading, spacing: 30) {
                             TextField("Image Url", text: $imageUrl)
                             
-                            if let url = URL(string: imageUrl), !imageUrl.isEmpty {
-                                AsyncImage(url: url) {
-                                    selectedUrl in
-                                    if let image = selectedUrl.image {
-                                        image
-                                            .resizable()
-                                            .frame(width: .infinity, height: 200)
-                                            .clipped()
-                                    } else {
-                                        Text("Loading Image ...")
-                                    }
-                                }
+                            AsyncImage(url: URL(string: imageUrl)) {
+                                image in
+                                image.resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: .infinity, height: 200)
+                                    .clipped()
+                                    .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                            } placeholder: {
+                                ProgressView()
                             }
                         }
                     }

@@ -17,7 +17,6 @@ struct AddRecipe: View {
     @State private var step: String = ""
     @State private var steps: [String] = []
     @State private var imageUrl: String = "https://billetterie.psg.fr/media/allianz-1.jpg"
-    @State private var isSelected: Bool = false
 
     var body: some View {
         Form {
@@ -128,37 +127,20 @@ struct AddRecipe: View {
                     VStack(alignment: .leading, spacing: 30) {
                         TextField("Image Url", text: $imageUrl)
                         
-                        if isSelected == true {
-                            if let url = URL(string: imageUrl), !imageUrl.isEmpty {
-                                AsyncImage(url: url) {
-                                    selectedUrl in
-                                    if let image = selectedUrl.image {
-                                        image
-                                            .resizable()
-                                            .frame(width: .infinity, height: 200)
-                                            .clipped()
-                                    } else {
-                                        Text("Loading Image ...")
-                                    }
-                                }
-                            }
+                        AsyncImage(url: URL(string: imageUrl)) {
+                            image in
+                            image.resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: .infinity, height: 200)
+                                .clipped()
+                                .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                        } placeholder: {
+                            ProgressView()
                         }
                     }
                 }
             }
-            
-            // View Image Button
-            Button(action: {
-                isSelected.toggle()
-            }) {
-                Text("View Image")
-                    .font(.subheadline)
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(5)
-            }
-           
+   
             // Add Recipe button
             Button(
                 action: {
