@@ -10,7 +10,8 @@ import SwiftUI
 struct ListOfRecipes: View {
     @State private var recipes = recipesArray
     @State private var filterByName: String = ""
-    
+    @State private var showAddRecipeView: Bool = false
+
     func addRecipe(_ recipe: Recipe) {
         recipes.append(recipe)
     }
@@ -29,23 +30,21 @@ struct ListOfRecipes: View {
     }
     
     var body: some View {
-        VStack {
+        ZStack {
             // Navigation View
             NavigationView {
-                ZStack {
-                    Form {
-                        Section(header: Text("Filter Recipes")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(.teal)
+                Form {
+                    Section(header: Text("Filter Recipes")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.teal)
                                 
-                        ) {
-                            // Filter Recipes
-                            TextField("Recipe Name", text: $filterByName)
-                        }
-                        .frame(height: 10)
-                        .padding()
-                    } // Form End
+                    ) {
+                        // Filter Recipes
+                        TextField("Recipe Name", text: $filterByName)
+                    }
+                    .frame(height: 10)
+                    .padding()
                     
                     // List of Recipes
                     List(filteredRecipes) {
@@ -63,7 +62,7 @@ struct ListOfRecipes: View {
                                     .font(.title2)
                                     .foregroundColor(.blue)
                                     .fontWeight(.bold)
-                                
+                                    
                                 // Image
                                 AsyncImage(url: URL(string: recipe.Image)) {
                                     image in
@@ -74,7 +73,7 @@ struct ListOfRecipes: View {
                                 } placeholder: {
                                     ProgressView()
                                 }
-                                
+                                    
                                 // Description
                                 Text(recipe.Description)
                                     .font(.system(size: 18, weight: .regular))
@@ -83,23 +82,31 @@ struct ListOfRecipes: View {
                         }
                         .navigationTitle("Recipes")
                     } // List End
-                    .offset(y: 220)
-                    
-                    // Add Recipe Navigation Link
-                    NavigationLink(
-                        destination: AddRecipe(addRecipe: addRecipe)
-                    ) {
-                        Text("Add New Recipe")
-                            .font(.title2)
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Color.blue)
-                            .cornerRadius(10)
-                            .buttonStyle(BorderedButtonStyle())
-                    }
-                    .position(x: 118, y: 180)
-                } // ZStack End
+                } // Form End
             } // Navigation End
+            
+            // Add Recipe Navigation Link
+            Button {
+                showAddRecipeView = true
+            } label: {
+                Spacer()
+                
+                Image(systemName: "plus.circle")
+                    .resizable()
+                    .frame(width: 40, height: 40)
+                    .accentColor(.blue)
+                
+                Spacer()
+            }
+            .background(Color.clear)
+            .padding()
+            .sheet(isPresented: $showAddRecipeView) {
+                AddRecipe(
+                    addRecipe: addRecipe,
+                    showAddRecipeView: $showAddRecipeView
+                )
+            }
+            .position(x: 350, y: 0)
         } // VStack End
     } // Body View End
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AddRecipe: View {
     var addRecipe: (Recipe) -> Void
+    @Binding var showAddRecipeView: Bool
 
     @State private var title: String = ""
     @State private var description: String = ""
@@ -16,8 +17,7 @@ struct AddRecipe: View {
     @State private var ingredients: [String] = []
     @State private var step: String = ""
     @State private var steps: [String] = []
-    @State private var imageUrl: String = ""
-    @State private var placeholderImage: String = "https://archive.org/download/placeholder-image/placeholder-image.jpg"
+    @State private var imageUrl: String = "https://archive.org/download/placeholder-image/placeholder-image.jpg"
     @State private var showErrorMessage: Bool = false
     
     var body: some View {
@@ -126,66 +126,73 @@ struct AddRecipe: View {
                     }
                   
                     // Image
-                    VStack(alignment: .leading, spacing: 30) {
+                    VStack(alignment: .leading) {
+                        Text("Image Url:")
+                            .font(.title3)
+                            .foregroundColor(.gray)
                         TextField("Image Url", text: $imageUrl)
                         
-                        if !imageUrl.isEmpty {
-                            AsyncImage(url: URL(string: imageUrl)) {
-                                image in
-                                image.resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: .infinity, height: 200)
-                                    .clipped()
-                                    .shadow(color: .gray, radius: 5, x: 0, y: 5)
-                            } placeholder: {
-                                ProgressView()
-                            }
-                        } else {
-                            AsyncImage(url: URL(string: placeholderImage)) {
-                                image in
-                                image.resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: .infinity, height: 200)
-                                    .clipped()
-                                    .shadow(color: .gray, radius: 5, x: 0, y: 5)
-                            } placeholder: {
-                                ProgressView()
-                            }
+                        AsyncImage(url: URL(string: imageUrl)) {
+                            image in
+                            image.resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: .infinity, height: 200)
+                                .clipped()
+                                .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                        } placeholder: {
+                            ProgressView()
                         }
                     }
                     
-                    // Add Recipe button
-                    Button(
-                        action: {
-                            if title.isEmpty || description.isEmpty || steps.isEmpty || ingredients.isEmpty {
-                                showErrorMessage = true
-                            } else {
-                                let newRecipe = Recipe(
-                                    Title: title,
-                                    Description: description,
-                                    Ingredients: ingredients,
-                                    Steps: steps,
-                                    Image: imageUrl
-                                )
+                    HStack {
+                        // Add Recipe button
+                        Button(
+                            action: {
+                                if title.isEmpty || description.isEmpty || steps.isEmpty || ingredients.isEmpty {
+                                    showErrorMessage = true
+                                } else {
+                                    let newRecipe = Recipe(
+                                        Title: title,
+                                        Description: description,
+                                        Ingredients: ingredients,
+                                        Steps: steps,
+                                        Image: imageUrl
+                                    )
+                                    
+                                    addRecipe(newRecipe)
+                                    showAddRecipeView = false
+                                    
+                                    title = ""
+                                    description = ""
+                                    ingredients = []
+                                    steps = []
+                                    imageUrl = ""
+                                }
                                 
-                                addRecipe(newRecipe)
-                                
-                                title = ""
-                                description = ""
-                                ingredients = []
-                                steps = []
-                                imageUrl = ""
+                            }) {
+                                Text("Add Recipe")
+                                    .font(.subheadline)
+                                    .padding(9)
+                                    .foregroundColor(.white)
+                                    .frame(width: 120)
                             }
-                                                        
+                            .background(Color.blue)
+                            .cornerRadius(5)
+                            .buttonStyle(BorderedButtonStyle())
+                          
+                        Button(action: {
+                            showAddRecipeView = false
                         }) {
-                            Text("Add Recipe")
+                            Text("Cancel")
                                 .font(.subheadline)
                                 .padding(9)
                                 .foregroundColor(.white)
+                                .frame(width: 120)
                         }
-                        .background(Color.blue)
+                        .background(Color.red)
                         .cornerRadius(5)
                         .buttonStyle(BorderedButtonStyle())
+                    }
                     
                     if showErrorMessage {
                         Text("All fields are required to add a recipe.")
@@ -200,5 +207,7 @@ struct AddRecipe: View {
 }
 
 #Preview {
-    AddRecipe { _ in print("Testing") }
+    AddRecipe(addRecipe: { _ in
+        print("Testing")
+    }, showAddRecipeView: .constant(false))
 }
