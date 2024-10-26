@@ -16,8 +16,10 @@ struct AddRecipe: View {
     @State private var ingredients: [String] = []
     @State private var step: String = ""
     @State private var steps: [String] = []
-    @State private var imageUrl: String = "https://billetterie.psg.fr/media/allianz-1.jpg"
-
+    @State private var imageUrl: String = ""
+    @State private var placeholderImage: String = "https://archive.org/download/placeholder-image/placeholder-image.jpg"
+    @State private var showErrorMessage: Bool = false
+    
     var body: some View {
         Form {
             Section(header: Text("Add Recipe")
@@ -127,46 +129,72 @@ struct AddRecipe: View {
                     VStack(alignment: .leading, spacing: 30) {
                         TextField("Image Url", text: $imageUrl)
                         
-                        AsyncImage(url: URL(string: imageUrl)) {
-                            image in
-                            image.resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: .infinity, height: 200)
-                                .clipped()
-                                .shadow(color: .gray, radius: 5, x: 0, y: 5)
-                        } placeholder: {
-                            ProgressView()
+                        if !imageUrl.isEmpty {
+                            AsyncImage(url: URL(string: imageUrl)) {
+                                image in
+                                image.resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: .infinity, height: 200)
+                                    .clipped()
+                                    .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                            } placeholder: {
+                                ProgressView()
+                            }
+                        } else {
+                            AsyncImage(url: URL(string: placeholderImage)) {
+                                image in
+                                image.resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: .infinity, height: 200)
+                                    .clipped()
+                                    .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                            } placeholder: {
+                                ProgressView()
+                            }
                         }
+                    }
+                    
+                    // Add Recipe button
+                    Button(
+                        action: {
+                            if title.isEmpty || description.isEmpty || steps.isEmpty || ingredients.isEmpty {
+                                showErrorMessage = true
+                            } else {
+                                let newRecipe = Recipe(
+                                    Title: title,
+                                    Description: description,
+                                    Ingredients: ingredients,
+                                    Steps: steps,
+                                    Image: imageUrl
+                                )
+                                
+                                addRecipe(newRecipe)
+                                
+                                title = ""
+                                description = ""
+                                ingredients = []
+                                steps = []
+                                imageUrl = ""
+                            }
+                                                        
+                        }) {
+                            Text("Add Recipe")
+                                .font(.subheadline)
+                                .padding(9)
+                                .foregroundColor(.white)
+                        }
+                        .background(Color.blue)
+                        .cornerRadius(5)
+                        .buttonStyle(BorderedButtonStyle())
+                    
+                    if showErrorMessage {
+                        Text("All fields are required to add a recipe.")
+                            .foregroundColor(.red)
+                            .font(.system(size: 17))
+                            .padding(.top)
                     }
                 }
             }
-   
-            // Add Recipe button
-            Button(
-                action: {
-                    let newRecipe = Recipe(
-                        Title: title,
-                        Description: description,
-                        Ingredients: ingredients,
-                        Steps: steps,
-                        Image: imageUrl
-                    )
-                    
-                    addRecipe(newRecipe)
-                    
-                    title = ""
-                    description = ""
-                    ingredients = []
-                    steps = []
-                    imageUrl = ""
-                }) {
-                    Text("Add Recipe")
-                        .font(.subheadline)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(5)
-                }
         }
     }
 }

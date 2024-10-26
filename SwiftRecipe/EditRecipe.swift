@@ -142,15 +142,19 @@ struct EditRecipe: View {
                         VStack(alignment: .leading, spacing: 30) {
                             TextField("Image Url", text: $imageUrl)
                             
-                            AsyncImage(url: URL(string: imageUrl)) {
-                                image in
-                                image.resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: .infinity, height: 200)
-                                    .clipped()
-                                    .shadow(color: .gray, radius: 5, x: 0, y: 5)
-                            } placeholder: {
-                                ProgressView()
+                            if !imageUrl.isEmpty {
+                                AsyncImage(url: URL(string: imageUrl)) {
+                                    image in
+                                    image.resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: .infinity, height: 200)
+                                        .clipped()
+                                        .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                            } else {
+                                Text("No Image Provided")
                             }
                         }
                     }
@@ -172,11 +176,12 @@ struct EditRecipe: View {
                     }) {
                         Text("Update Recipe")
                             .font(.subheadline)
-                            .padding(25)
+                            .padding(18)
                             .background(Color.blue)
                             .foregroundColor(.white)
                             .cornerRadius(5)
                     }
+                    .padding(.top, 8)
             }
         }
     }
