@@ -113,9 +113,10 @@ struct RecipeDetailView: View {
                     }
                     .font(.title2)
                     .foregroundColor(.white)
-                    .padding()
+                    .frame(width: 140)
+                    .padding(9)
                     .background(Color.green)
-                    .cornerRadius(10)
+                    .cornerRadius(5)
                     .sheet(isPresented: $showEditView) {
                         EditRecipe(
                             recipeDetail: recipeDetail,
@@ -130,9 +131,10 @@ struct RecipeDetailView: View {
                     }
                     .font(.title2)
                     .foregroundColor(.white)
-                    .padding()
+                    .frame(width: 140)
+                    .padding(9)
                     .background(Color.red)
-                    .cornerRadius(10)
+                    .cornerRadius(5)
                     .actionSheet(isPresented: $showActionSheet) {
                         ActionSheet(
                             title: Text("Delete Recipe"),
@@ -148,6 +150,7 @@ struct RecipeDetailView: View {
                         )
                     }
                 } // Button HStack
+                .padding()
             } // Scrollview End
         } // First VStack end
         

@@ -160,28 +160,48 @@ struct EditRecipe: View {
                     }
                 }
                 
-                Button(
-                    action: {
-                        let updatedRecipe = Recipe(
-                            Title: title,
-                            Description: description,
-                            Ingredients: ingredients,
-                            Steps: steps,
-                            Image: imageUrl
-                        )
+                HStack {
+                    Button(
+                        action: {
+                            let updatedRecipe = Recipe(
+                                Title: title,
+                                Description: description,
+                                Ingredients: ingredients,
+                                Steps: steps,
+                                Image: imageUrl
+                            )
+                            
+                            editRecipe(updatedRecipe)
+                            showEditView = false
+                            
+                        }) {
+                            Text("Update Recipe")
+                                .font(.subheadline)
+                                .frame(width: 110)
+                                .padding(18)
+                                .foregroundColor(.white)
+                                .background(Color.blue)
+                                .cornerRadius(5)
+                        }
+                        .padding(.top, 8)
+                        .frame(width: .infinity)
                         
-                        editRecipe(updatedRecipe)
-                        showEditView = false
-                        
-                    }) {
-                        Text("Update Recipe")
-                            .font(.subheadline)
-                            .padding(18)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(5)
-                    }
-                    .padding(.top, 8)
+                    
+                    Button(
+                        action: {
+                            showEditView = false
+                        }) {
+                            Text("Cancel")
+                                .font(.subheadline)
+                                .frame(width: 110)
+                                .padding(18)
+                                .background(Color.red)
+                                .foregroundColor(.white)
+                                .cornerRadius(5)
+                        }
+                        .padding(.top, 8)
+                       
+                }
             }
         }
     }
