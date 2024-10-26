@@ -10,15 +10,15 @@ import SwiftUI
 struct ListOfRecipes: View {
     @State private var recipes = recipesArray
     @State private var filterByName: String = ""
-
+    
     func addRecipe(_ recipe: Recipe) {
         recipes.append(recipe)
     }
-
+    
     func deleteRecipe(_ recipe: Recipe) {
         recipes = recipes.filter { $0.id != recipe.id }
     }
-
+    
     var filteredRecipes: [Recipe] {
         if filterByName.isEmpty {
             return recipes
@@ -27,26 +27,26 @@ struct ListOfRecipes: View {
                 .filter { $0.Title.localizedStandardContains(filterByName) }
         }
     }
-
+    
     var body: some View {
         VStack {
             // Navigation View
             NavigationView {
-                VStack {
+                ZStack {
                     Form {
                         Section(header: Text("Filter Recipes")
                             .font(.title)
                             .fontWeight(.bold)
                             .foregroundColor(.teal)
-
+                                
                         ) {
                             // Filter Recipes
                             TextField("Recipe Name", text: $filterByName)
                         }
-                    }
-                    .frame(height: 120)
-                    .padding()
-
+                        .frame(height: 10)
+                        .padding()
+                    } // Form End
+                    
                     // List of Recipes
                     List(filteredRecipes) {
                         recipe in NavigationLink(
@@ -63,7 +63,7 @@ struct ListOfRecipes: View {
                                     .font(.title2)
                                     .foregroundColor(.blue)
                                     .fontWeight(.bold)
-
+                                
                                 // Image
                                 AsyncImage(url: URL(string: recipe.Image)) {
                                     image in
@@ -74,36 +74,33 @@ struct ListOfRecipes: View {
                                 } placeholder: {
                                     ProgressView()
                                 }
-
+                                
                                 // Description
                                 Text(recipe.Description)
                                     .font(.system(size: 18, weight: .regular))
                             }
+                            .padding()
                         }
-                        .padding()
-                        .border(Color.black)
-                        .background(Color.white)
-                        .listRowSeparator(.hidden)
                         .navigationTitle("Recipes")
                     } // List End
-                    .listStyle(PlainListStyle())
-
+                    .offset(y: 220)
+                    
                     // Add Recipe Navigation Link
-                    VStack {
-                        NavigationLink(
-                            destination: AddRecipe(addRecipe: addRecipe)
-                        ) {
-                            Text("Add New Recipe")
-                                .font(.title2)
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(Color.blue)
-                                .cornerRadius(10)
-                        }
+                    NavigationLink(
+                        destination: AddRecipe(addRecipe: addRecipe)
+                    ) {
+                        Text("Add New Recipe")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                            .buttonStyle(BorderedButtonStyle())
                     }
-                } // Inside Navigation VStack End
+                    .position(x: 118, y: 180)
+                } // ZStack End
             } // Navigation End
-        } // Outside Navigation VStack End
+        } // VStack End
     } // Body View End
 }
 
