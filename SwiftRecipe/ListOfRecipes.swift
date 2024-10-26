@@ -59,16 +59,10 @@ struct ListOfRecipes: View {
                         ) {
                             VStack(alignment: .leading, spacing: 20) {
                                 // Title
-                                VStack(alignment: .leading) {
-                                    Text("Recipe:")
-                                        .font(.title)
-                                        .foregroundColor(.teal)
-                                    Text(recipe.Title)
-                                        .font(.title2)
-                                        .foregroundColor(.blue)
-                                }
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .fontWeight(.bold)
+                                Text(recipe.Title)
+                                    .font(.title2)
+                                    .foregroundColor(.blue)
+                                    .fontWeight(.bold)
 
                                 // Image
                                 AsyncImage(url: URL(string: recipe.Image)) {
@@ -82,12 +76,8 @@ struct ListOfRecipes: View {
                                 }
 
                                 // Description
-                                VStack(alignment: .leading, spacing: 5) {
-                                    Text("Description:")
-                                        .font(.system(size: 22, weight: .medium))
-                                    Text(recipe.Description)
-                                        .font(.system(size: 18, weight: .regular))
-                                }
+                                Text(recipe.Description)
+                                    .font(.system(size: 18, weight: .regular))
                             }
                         }
                         .padding()
