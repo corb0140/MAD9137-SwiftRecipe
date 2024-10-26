@@ -17,7 +17,7 @@ struct AddRecipe: View {
     @State private var ingredients: [String] = []
     @State private var step: String = ""
     @State private var steps: [String] = []
-    @State private var imageUrl: String = "https://archive.org/download/placeholder-image/placeholder-image.jpg"
+    @State private var imageUrl: String = ""
     @State private var showErrorMessage: Bool = false
     
     var body: some View {
@@ -140,7 +140,7 @@ struct AddRecipe: View {
                                 .clipped()
                                 .shadow(color: .gray, radius: 5, x: 0, y: 5)
                         } placeholder: {
-                            ProgressView()
+                            Text("")
                         }
                     }
                     
@@ -195,10 +195,11 @@ struct AddRecipe: View {
                     }
                     
                     if showErrorMessage {
-                        Text("All fields are required to add a recipe.")
+                        Text("All fields except imageUrl are required to add a recipe.")
                             .foregroundColor(.red)
                             .font(.system(size: 17))
                             .padding(.top)
+                            .multilineTextAlignment(.center)
                     }
                 }
             }

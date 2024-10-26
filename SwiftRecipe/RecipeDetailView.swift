@@ -12,6 +12,7 @@ struct RecipeDetailView: View {
     
     @State private var showEditView: Bool = false
     @State private var showActionSheet: Bool = false
+    @State private var placeHolderImage: String = "https://archive.org/download/placeholder-image/placeholder-image.jpg"
 
     func editRecipe(_ updatedRecipe: Recipe) {
         recipeDetail = updatedRecipe
@@ -23,15 +24,28 @@ struct RecipeDetailView: View {
         VStack(alignment: .leading) {
             VStack {
                 // Image
-                AsyncImage(url: URL(string: recipeDetail.Image)) {
-                    image in
-                    image.resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: .infinity, height: 200)
-                        .clipped()
-                        .shadow(color: .gray, radius: 5, x: 0, y: 5)
-                } placeholder: {
-                    ProgressView()
+                if !recipeDetail.Image.isEmpty {
+                    AsyncImage(url: URL(string: recipeDetail.Image)) {
+                        image in
+                        image.resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: .infinity, height: 200)
+                            .clipped()
+                            .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                } else {
+                    AsyncImage(url: URL(string: placeHolderImage)) {
+                        image in
+                        image.resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: .infinity, height: 200)
+                            .clipped()
+                            .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                    } placeholder: {
+                        ProgressView()
+                    }
                 }
             }
                 
