@@ -11,6 +11,7 @@ struct ListOfRecipes: View {
     @State private var recipes = recipesArray
     @State private var filterByName: String = ""
     @State private var showAddRecipeView: Bool = false
+    @State private var placeHolderImage: String = "https://archive.org/download/placeholder-image/placeholder-image.jpg"
 
     func addRecipe(_ recipe: Recipe) {
         recipes.append(recipe)
@@ -62,16 +63,30 @@ struct ListOfRecipes: View {
                                     .font(.title2)
                                     .foregroundColor(.blue)
                                     .fontWeight(.bold)
-                                    
+                                
                                 // Image
-                                AsyncImage(url: URL(string: recipe.Image)) {
-                                    image in
-                                    image.resizable()
-                                        .frame(width: .infinity, height: 200)
-                                        .clipped()
-                                        .shadow(color: .gray, radius: 5, x: 0, y: 5)
-                                } placeholder: {
-                                    ProgressView()
+                                if !recipe.Image.isEmpty {
+                                    AsyncImage(url: URL(string: recipe.Image)) {
+                                        image in
+                                        image.resizable()
+                                            .frame(width: .infinity, height: 200)
+                                            .clipped()
+                                            .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
+                                } else {
+                                    AsyncImage(
+                                        url: URL(string: placeHolderImage)
+                                    ) {
+                                        image in
+                                        image.resizable()
+                                            .frame(width: .infinity, height: 200)
+                                            .clipped()
+                                            .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
                                 }
                                     
                                 // Description
