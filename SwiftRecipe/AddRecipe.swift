@@ -69,6 +69,7 @@ struct AddRecipe: View {
                             }
                         }
                       
+                        // Add Ingredient Button
                         Button(action: {
                             if !ingredient.isEmpty {
                                 ingredients.append(ingredient)
@@ -109,7 +110,7 @@ struct AddRecipe: View {
                             }
                         }
                      
-                        // Add Ingredient Button
+                        // Add Step Button
                         Button(action: {
                             if !step.isEmpty {
                                 steps.append(step)
