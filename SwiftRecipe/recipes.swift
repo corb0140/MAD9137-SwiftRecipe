@@ -89,4 +89,12 @@ class RecipeList: ObservableObject {
             Image: "https://www.thespruceeats.com/thmb/sFNQ8AqRurVo28e4Xosj9bTdMyY=/425x300/filters:max_bytes(150000):strip_icc():format(webp)/strawberry-breakfast-smoothie-recipe-2097149-hero-02-5c1d4b2a46e0fb00014bf2ec.jpg"
         ),
     ]
+
+    func addRecipe(_ recipe: Recipe) {
+        recipesArray.append(recipe)
+    }
+
+    func deleteRecipe(_ recipe: Recipe) {
+        recipesArray = recipesArray.filter { $0.id != recipe.id }
+    }
 }

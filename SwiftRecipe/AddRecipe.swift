@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AddRecipe: View {
-    var addRecipe: (Recipe) -> Void
     @Binding var showAddRecipeView: Bool
 
     @State private var title: String = ""
@@ -160,7 +159,7 @@ struct AddRecipe: View {
                                         Image: imageUrl
                                     )
                                     
-                                    addRecipe(newRecipe)
+//                                    addRecipe(newRecipe)
                                     showAddRecipeView = false
                                     
                                     title = ""
@@ -209,7 +208,6 @@ struct AddRecipe: View {
 }
 
 #Preview {
-    AddRecipe(addRecipe: { _ in
-        print("Testing")
-    }, showAddRecipeView: .constant(false))
+    AddRecipe(
+        showAddRecipeView: .constant(false))
 }

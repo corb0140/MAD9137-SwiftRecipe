@@ -9,7 +9,6 @@ import SwiftUI
 
 struct EditRecipe: View {
     @State var recipeDetail: Recipe
-    var editRecipe: (Recipe) -> Void
     @Binding var showEditView: Bool
     
     @State private var title: String
@@ -20,9 +19,8 @@ struct EditRecipe: View {
     @State private var ingredient = ""
     @State private var step = ""
   
-    init(recipeDetail: Recipe, editRecipe: @escaping (Recipe) -> Void, showEditView: Binding<Bool>) {
+    init(recipeDetail: Recipe, showEditView: Binding<Bool>) {
         self.recipeDetail = recipeDetail
-        self.editRecipe = editRecipe
         self._showEditView = showEditView
         _title = State(initialValue: recipeDetail.Title)
         _description = State(initialValue: recipeDetail.Description)
@@ -171,7 +169,6 @@ struct EditRecipe: View {
                                 Image: imageUrl
                             )
                             
-                            editRecipe(updatedRecipe)
                             showEditView = false
                             
                         }) {
@@ -186,7 +183,6 @@ struct EditRecipe: View {
                         .padding(.top, 8)
                         .frame(width: .infinity)
                         
-                    
                     Button(
                         action: {
                             showEditView = false
@@ -200,7 +196,6 @@ struct EditRecipe: View {
                                 .cornerRadius(5)
                         }
                         .padding(.top, 8)
-                       
                 }
             }
         }
@@ -213,8 +208,6 @@ struct EditRecipe: View {
                                     Ingredients: ["Lemonade", "Lemon Yogurt", "Frozen Strawberries"],
                                     Steps: ["Place all ingredients in a blender", "cover and process 15 seconds or until blended", "Serve immediately"],
                                     Image: "https://www.thespruceeats.com/thmb/sFNQ8AqRurVo28e4Xosj9bTdMyY=/425x300/filters:max_bytes(150000):strip_icc():format(webp)/strawberry-breakfast-smoothie-recipe-2097149-hero-02-5c1d4b2a46e0fb00014bf2ec.jpg"),
-               editRecipe: { _ in
-                   print("testing edit recipe")
-               },
+               
                showEditView: .constant(false))
 }

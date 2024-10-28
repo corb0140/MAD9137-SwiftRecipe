@@ -8,23 +8,16 @@
 import SwiftUI
 
 struct ListOfRecipes: View {
+    @EnvironmentObject var recipes: RecipeList
     @State private var filterByName: String = ""
     @State private var showAddRecipeView: Bool = false
     @State private var placeHolderImage: String = "https://archive.org/download/placeholder-image/placeholder-image.jpg"
     
-    func addRecipe(_ recipe: Recipe) {
-        recipes.append(recipe)
-    }
-    
-    func deleteRecipe(_ recipe: Recipe) {
-        recipes = recipes.filter { $0.id != recipe.id }
-    }
-    
     var filteredRecipes: [Recipe] {
         if filterByName.isEmpty {
-            return recipes
+            return recipes.recipesArray
         } else {
-            return recipes
+            return recipes.recipesArray
                 .filter { $0.Title.localizedStandardContains(filterByName) }
         }
     }
@@ -50,10 +43,7 @@ struct ListOfRecipes: View {
                     List(filteredRecipes) {
                         recipe in NavigationLink(
                             destination: RecipeDetailView(
-                                recipeDetail: recipe,
-                                delete: {
-                                    deleteRecipe(recipe)
-                                }
+                                recipeDetail: recipe
                             )
                         ) {
                             VStack(alignment: .leading, spacing: 20) {
@@ -116,7 +106,6 @@ struct ListOfRecipes: View {
             .padding()
             .sheet(isPresented: $showAddRecipeView) {
                 AddRecipe(
-                    addRecipe: addRecipe,
                     showAddRecipeView: $showAddRecipeView
                 )
             }
