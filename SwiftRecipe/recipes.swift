@@ -97,4 +97,6 @@ class RecipeList: ObservableObject {
     func deleteRecipe(_ recipe: Recipe) {
         recipesArray = recipesArray.filter { $0.id != recipe.id }
     }
+    
+    
 }

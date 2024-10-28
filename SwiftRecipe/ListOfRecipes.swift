@@ -43,7 +43,10 @@ struct ListOfRecipes: View {
                     List(filteredRecipes) {
                         recipe in NavigationLink(
                             destination: RecipeDetailView(
-                                recipeDetail: recipe
+                                recipeDetail: recipe,
+                                delete: {_ in 
+                                    recipes.deleteRecipe(recipe)
+                                }
                             )
                         ) {
                             VStack(alignment: .leading, spacing: 20) {
@@ -106,6 +109,7 @@ struct ListOfRecipes: View {
             .padding()
             .sheet(isPresented: $showAddRecipeView) {
                 AddRecipe(
+                    addRecipe: recipes.addRecipe,
                     showAddRecipeView: $showAddRecipeView
                 )
             }

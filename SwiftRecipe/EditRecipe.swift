@@ -161,13 +161,13 @@ struct EditRecipe: View {
                 HStack {
                     Button(
                         action: {
-                            let updatedRecipe = Recipe(
-                                Title: title,
-                                Description: description,
-                                Ingredients: ingredients,
-                                Steps: steps,
-                                Image: imageUrl
-                            )
+//                            let updatedRecipe = Recipe(
+//                                Title: title,
+//                                Description: description,
+//                                Ingredients: ingredients,
+//                                Steps: steps,
+//                                Image: imageUrl
+//                            )
                             
                             showEditView = false
                             

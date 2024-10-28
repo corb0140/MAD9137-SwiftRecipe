@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var recipeList = RecipeList()
+
     var body: some View {
         ListOfRecipes()
+            .environmentObject(recipeList)
     }
 }
 
