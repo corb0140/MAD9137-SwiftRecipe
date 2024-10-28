@@ -14,11 +14,11 @@ struct RecipeDetailView: View {
     @State private var showActionSheet: Bool = false
     @State private var placeHolderImage: String = "https://archive.org/download/placeholder-image/placeholder-image.jpg"
 
+    var delete: () -> Void
+
     func editRecipe(_ updatedRecipe: Recipe) {
         recipeDetail = updatedRecipe
     }
-    
-    var delete: () -> Void
     
     var body: some View {
         VStack(alignment: .leading) {

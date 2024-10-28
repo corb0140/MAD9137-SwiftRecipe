@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct ListOfRecipes: View {
-    @State private var recipes = recipesArray
     @State private var filterByName: String = ""
     @State private var showAddRecipeView: Bool = false
     @State private var placeHolderImage: String = "https://archive.org/download/placeholder-image/placeholder-image.jpg"
-
+    
     func addRecipe(_ recipe: Recipe) {
         recipes.append(recipe)
     }
@@ -35,7 +34,7 @@ struct ListOfRecipes: View {
             // Navigation View
             NavigationView {
                 Form {
-                    Section(header: Text("Filter Recipes")
+                    Section(header: Text("Search Recipes")
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundColor(.teal)
