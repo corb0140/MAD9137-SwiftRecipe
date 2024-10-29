@@ -82,17 +82,18 @@ struct RecipeDetailView: View {
                             
                         VStack(alignment: .leading, spacing: 5) {
                             ForEach(
-                                recipeDetail.Ingredients.indices,
+                                recipeDetail.Ingredients,
                                 id: \.self
-                            ) { index in
-                                let ingredient = recipeDetail.Ingredients[index]
-                                let isLast = index == recipeDetail.Ingredients.count - 1
-                                
-                                Text("\(ingredient)\(isLast ? "." : ",")")
-                                    .font(.system(size: 20))
+                            ) { ingredient in
+                                HStack(alignment: .center, spacing: 15) {
+                                    Circle()
+                                        .fill(Color.black)
+                                        .frame(width: 6, height: 6)
+                                    Text(ingredient)
+                                        .font(.system(size: 20))
+                                }
                             }
                         }
-                        .offset(y: 5)
                     }
                     .padding(.top)
                     
@@ -104,18 +105,19 @@ struct RecipeDetailView: View {
                             .foregroundColor(.blue)
                             .textCase(.uppercase)
                             
-                        VStack(alignment: .leading, spacing: 10) {
+                        VStack(alignment: .leading, spacing: 5) {
                             ForEach(recipeDetail.Steps.indices, id: \.self) { index in
                                 let step = recipeDetail.Steps[index]
                                     
-                                HStack(alignment: .top) {
+                                HStack(alignment: .center, spacing: 15) {
                                     Text("\(index + 1).")
+                                        .font(.system(size: 15))
                                     Text("\(step)")
+                                        .font(.system(size: 20))
                                 }
-                                .font(.system(size: 20))
                             }
                         }
-                        .offset(y: 5)
+                        .offset(y: 18)
                     } // VStack end for steps
                     .padding(.top)
                 } // VStack end for Info
@@ -128,9 +130,9 @@ struct RecipeDetailView: View {
                     }
                     .font(.title2)
                     .foregroundColor(.white)
-                    .frame(width: 140)
+                    .frame(width: 135)
                     .padding(9)
-                    .background(Color.green)
+                    .background(Color.blue)
                     .cornerRadius(5)
                     .sheet(isPresented: $showEditView) {
                         EditRecipe(
@@ -147,7 +149,7 @@ struct RecipeDetailView: View {
                     }
                     .font(.title2)
                     .foregroundColor(.white)
-                    .frame(width: 140)
+                    .frame(width: 135)
                     .padding(9)
                     .background(Color.red)
                     .cornerRadius(5)
@@ -185,4 +187,5 @@ struct RecipeDetailView: View {
             print("Testing")
         }
     )
+    .environmentObject(RecipeList())
 }
