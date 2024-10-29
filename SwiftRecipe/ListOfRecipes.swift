@@ -44,7 +44,7 @@ struct ListOfRecipes: View {
                         recipe in NavigationLink(
                             destination: RecipeDetailView(
                                 recipeDetail: recipe,
-                                delete: {_ in 
+                                delete: { _ in
                                     recipes.deleteRecipe(recipe)
                                 }
                             )
@@ -120,4 +120,5 @@ struct ListOfRecipes: View {
 
 #Preview {
     ListOfRecipes()
+        .environmentObject(RecipeList())
 }

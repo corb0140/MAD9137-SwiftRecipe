@@ -11,24 +11,16 @@ struct EditRecipe: View {
     @State var recipeDetail: Recipe
     @Binding var showEditView: Bool
     
-    @State private var title: String
-    @State private var description: String
-    @State private var ingredients: [String]
-    @State private var steps: [String]
-    @State private var imageUrl: String
+    @State private var title: String = ""
+    @State private var description: String = ""
     @State private var ingredient = ""
+    @State private var ingredients: [String] = []
     @State private var step = ""
+    @State private var steps: [String] = []
+    @State private var imageUrl: String = ""
+   
+    var editRecipe: (Recipe) -> Void
   
-    init(recipeDetail: Recipe, showEditView: Binding<Bool>) {
-        self.recipeDetail = recipeDetail
-        self._showEditView = showEditView
-        _title = State(initialValue: recipeDetail.Title)
-        _description = State(initialValue: recipeDetail.Description)
-        _ingredients = State(initialValue: recipeDetail.Ingredients)
-        _steps = State(initialValue: recipeDetail.Steps)
-        _imageUrl = State(initialValue: recipeDetail.Image)
-    }
-    
     var body: some View {
         Form {
             ScrollView {
@@ -161,16 +153,17 @@ struct EditRecipe: View {
                 HStack {
                     Button(
                         action: {
-//                            let updatedRecipe = Recipe(
-//                                Title: title,
-//                                Description: description,
-//                                Ingredients: ingredients,
-//                                Steps: steps,
-//                                Image: imageUrl
-//                            )
+                            let updatedRecipe = Recipe(
+                                Title: title,
+                                Description: description,
+                                Ingredients: ingredients,
+                                Steps: steps,
+                                Image: imageUrl
+                            )
                             
+                            editRecipe(updatedRecipe)
                             showEditView = false
-                            
+                           
                         }) {
                             Text("Update Recipe")
                                 .font(.subheadline)
@@ -199,6 +192,13 @@ struct EditRecipe: View {
                 }
             }
         }
+        .onAppear {
+            title = recipeDetail.Title
+            description = recipeDetail.Description
+            ingredients = recipeDetail.Ingredients
+            steps = recipeDetail.Steps
+            imageUrl = recipeDetail.Image
+        }
     }
 }
 
@@ -208,6 +208,6 @@ struct EditRecipe: View {
                                     Ingredients: ["Lemonade", "Lemon Yogurt", "Frozen Strawberries"],
                                     Steps: ["Place all ingredients in a blender", "cover and process 15 seconds or until blended", "Serve immediately"],
                                     Image: "https://www.thespruceeats.com/thmb/sFNQ8AqRurVo28e4Xosj9bTdMyY=/425x300/filters:max_bytes(150000):strip_icc():format(webp)/strawberry-breakfast-smoothie-recipe-2097149-hero-02-5c1d4b2a46e0fb00014bf2ec.jpg"),
-               
-               showEditView: .constant(false))
+               showEditView: 
+            .constant(false), editRecipe: { _ in print("Testing") })
 }

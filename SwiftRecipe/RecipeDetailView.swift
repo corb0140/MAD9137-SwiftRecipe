@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RecipeDetailView: View {
+    @EnvironmentObject var recipes: RecipeList
     @State var recipeDetail: Recipe
     
     @State private var showEditView: Bool = false
@@ -130,7 +131,8 @@ struct RecipeDetailView: View {
                     .sheet(isPresented: $showEditView) {
                         EditRecipe(
                             recipeDetail: recipeDetail,
-                            showEditView: $showEditView
+                            showEditView: $showEditView,
+                            editRecipe: recipes.editRecipe
                         )
                     }
                     
@@ -174,7 +176,7 @@ struct RecipeDetailView: View {
                              Ingredients: ["Lemonade", "Lemon Yogurt", "Frozen Strawberries"],
                              Steps: ["Place all ingredients in a blender", "cover and process 15 seconds or until blended", "Serve immediately"],
                              Image: "https://www.thespruceeats.com/thmb/sFNQ8AqRurVo28e4Xosj9bTdMyY=/425x300/filters:max_bytes(150000):strip_icc():format(webp)/strawberry-breakfast-smoothie-recipe-2097149-hero-02-5c1d4b2a46e0fb00014bf2ec.jpg"),
-        delete: {_ in 
+        delete: { _ in
             print("Testing")
         }
     )

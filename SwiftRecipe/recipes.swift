@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Recipe: Identifiable, Hashable {
+struct Recipe: Identifiable {
     let id = UUID()
     let Title: String
     let Description: String
@@ -97,6 +97,13 @@ class RecipeList: ObservableObject {
     func deleteRecipe(_ recipe: Recipe) {
         recipesArray = recipesArray.filter { $0.id != recipe.id }
     }
-    
-    
+
+    func editRecipe(_ updatedRecipe: Recipe) {
+        print(recipesArray[0].id)
+        print(updatedRecipe.id)
+
+        if let index = recipesArray.firstIndex(where: { $0.id == updatedRecipe.id }) {
+            recipesArray[index] = updatedRecipe
+        }
+    }
 }
