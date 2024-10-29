@@ -20,6 +20,7 @@ struct EditRecipe: View {
     @State private var imageUrl: String = ""
    
     var editRecipe: (Recipe) -> Void
+    var updateRecipeDetail: (Recipe) -> Void
   
     var body: some View {
         Form {
@@ -154,6 +155,7 @@ struct EditRecipe: View {
                     Button(
                         action: {
                             let updatedRecipe = Recipe(
+                                id: recipeDetail.id,
                                 Title: title,
                                 Description: description,
                                 Ingredients: ingredients,
@@ -161,6 +163,7 @@ struct EditRecipe: View {
                                 Image: imageUrl
                             )
                             
+                            updateRecipeDetail(updatedRecipe)
                             editRecipe(updatedRecipe)
                             showEditView = false
                            
@@ -203,11 +206,17 @@ struct EditRecipe: View {
 }
 
 #Preview {
-    EditRecipe(recipeDetail: Recipe(Title: "Strawberry Lemonade Smoothie",
-                                    Description: "A sweet and tangy beverage to take on the go",
-                                    Ingredients: ["Lemonade", "Lemon Yogurt", "Frozen Strawberries"],
-                                    Steps: ["Place all ingredients in a blender", "cover and process 15 seconds or until blended", "Serve immediately"],
-                                    Image: "https://www.thespruceeats.com/thmb/sFNQ8AqRurVo28e4Xosj9bTdMyY=/425x300/filters:max_bytes(150000):strip_icc():format(webp)/strawberry-breakfast-smoothie-recipe-2097149-hero-02-5c1d4b2a46e0fb00014bf2ec.jpg"),
-               showEditView: 
-            .constant(false), editRecipe: { _ in print("Testing") })
+    EditRecipe(
+        recipeDetail: Recipe(Title: "Strawberry Lemonade Smoothie",
+                             Description: "A sweet and tangy beverage to take on the go",
+                             Ingredients: ["Lemonade", "Lemon Yogurt", "Frozen Strawberries"],
+                             Steps: ["Place all ingredients in a blender", "cover and process 15 seconds or until blended", "Serve immediately"],
+                             Image: "https://www.thespruceeats.com/thmb/sFNQ8AqRurVo28e4Xosj9bTdMyY=/425x300/filters:max_bytes(150000):strip_icc():format(webp)/strawberry-breakfast-smoothie-recipe-2097149-hero-02-5c1d4b2a46e0fb00014bf2ec.jpg"),
+        showEditView:
+        .constant(false),
+        editRecipe: {
+            _ in print("Testing")
+        },
+        updateRecipeDetail: { _ in print("Testing") }
+    )
 }

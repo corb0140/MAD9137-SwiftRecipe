@@ -8,12 +8,21 @@
 import SwiftUI
 
 struct Recipe: Identifiable {
-    let id = UUID()
+    var id = UUID()
     let Title: String
     let Description: String
     let Ingredients: [String]
     let Steps: [String]
     let Image: String
+
+    init(id: UUID = UUID(), Title: String, Description: String, Ingredients: [String], Steps: [String], Image: String) {
+        self.id = id
+        self.Title = Title
+        self.Description = Description
+        self.Ingredients = Ingredients
+        self.Steps = Steps
+        self.Image = Image
+    }
 }
 
 class RecipeList: ObservableObject {
@@ -99,9 +108,6 @@ class RecipeList: ObservableObject {
     }
 
     func editRecipe(_ updatedRecipe: Recipe) {
-        print(recipesArray[0].id)
-        print(updatedRecipe.id)
-
         if let index = recipesArray.firstIndex(where: { $0.id == updatedRecipe.id }) {
             recipesArray[index] = updatedRecipe
         }

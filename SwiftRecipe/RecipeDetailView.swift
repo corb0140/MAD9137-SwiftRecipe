@@ -16,7 +16,11 @@ struct RecipeDetailView: View {
     @State private var placeHolderImage: String = "https://archive.org/download/placeholder-image/placeholder-image.jpg"
     
     var delete: (Recipe) -> Void
-
+    
+    func updateRecipeDetail(_ recipeDetail: Recipe) {
+        self.recipeDetail = recipeDetail
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
             VStack {
@@ -132,7 +136,8 @@ struct RecipeDetailView: View {
                         EditRecipe(
                             recipeDetail: recipeDetail,
                             showEditView: $showEditView,
-                            editRecipe: recipes.editRecipe
+                            editRecipe: recipes.editRecipe,
+                            updateRecipeDetail: updateRecipeDetail
                         )
                     }
                     
