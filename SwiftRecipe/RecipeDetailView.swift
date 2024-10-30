@@ -167,12 +167,10 @@ struct RecipeDetailView: View {
                             ]
                         )
                     }
-                } // Button HStack
+                }
                 .padding()
-            } // Scrollview End
-        } // First VStack end
-        
-        Spacer()
+            }
+        }
     }
 }
 

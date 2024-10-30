@@ -26,18 +26,16 @@ struct ListOfRecipes: View {
         ZStack {
             // Navigation View
             NavigationView {
-                Form {
-                    Section(header: Text("Search Recipes")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(.teal)
-                                
-                    ) {
-                        // Filter Recipes
-                        TextField("Recipe Name", text: $filterByName)
-                    }
-                    .frame(height: 10)
-                    .padding()
+                VStack {
+                    // Filter Recipes
+                    TextField("Filter Recipes", text: $filterByName)
+                        .padding()
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke(Color.gray, lineWidth: 1)
+                        )
+                        .padding()
+                    
                     
                     // List of Recipes
                     List(filteredRecipes) {
@@ -88,9 +86,9 @@ struct ListOfRecipes: View {
                             .padding()
                         }
                         .navigationTitle("Recipes")
-                    } // List End
-                } // Form End
-            } // Navigation End
+                    }
+                }
+            }
             
             // Add Recipe Navigation Link
             Button {
@@ -113,9 +111,9 @@ struct ListOfRecipes: View {
                     showAddRecipeView: $showAddRecipeView
                 )
             }
-            .position(x: 350, y: 0)
-        } // VStack End
-    } // Body View End
+            .position(x: 350, y: 10)
+        }
+    }
 }
 
 #Preview {
