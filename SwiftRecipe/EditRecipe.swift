@@ -11,6 +11,7 @@ struct EditRecipe: View {
     @State var recipeDetail: Recipe
     @Binding var showEditView: Bool
     
+    @State private var icon: String = ""
     @State private var category: String = ""
     @State private var title: String = ""
     @State private var description: String = ""
@@ -168,6 +169,7 @@ struct EditRecipe: View {
                         action: {
                             let updatedRecipe = Recipe(
                                 id: recipeDetail.id,
+                                Icon: icon,
                                 Category: category,
                                 Title: title,
                                 Description: description,
@@ -225,7 +227,7 @@ struct EditRecipe: View {
 
 #Preview {
     EditRecipe(
-        recipeDetail: Recipe(Category: "Vegan", Title: "Strawberry Lemonade Smoothie",
+        recipeDetail: Recipe(Icon: "icons8-vegan-48", Category: "Vegan", Title: "Strawberry Lemonade Smoothie",
                              Description: "A sweet and tangy beverage to take on the go",
                              Ingredients: ["Lemonade", "Lemon Yogurt", "Frozen Strawberries"],
                              Steps: ["Place all ingredients in a blender", "cover and process 15 seconds or until blended", "Serve immediately"],

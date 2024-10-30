@@ -11,6 +11,7 @@ struct AddRecipe: View {
     var addRecipe: (Recipe) -> Void
     @Binding var showAddRecipeView: Bool
 
+    @State private var icon: String = ""
     @State private var category: String = ""
     @State private var title: String = ""
     @State private var description: String = ""
@@ -165,6 +166,7 @@ struct AddRecipe: View {
                                     showErrorMessage = true
                                 } else {
                                     let newRecipe = Recipe(
+                                        Icon: icon,
                                         Category: category,
                                         Title: title,
                                         Description: description,

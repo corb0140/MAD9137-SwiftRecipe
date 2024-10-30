@@ -28,175 +28,185 @@ struct ListOfRecipes: View {
     ]
     
     var body: some View {
-//        ZStack {
-        // Navigation View
-        NavigationView {
-            VStack {
-                HStack(spacing: 20) {
-                    Spacer()
+        ZStack(alignment: .topTrailing) {
+            // Navigation View
+            NavigationView {
+                VStack {
+                    HStack(spacing: 20) {
+                        Spacer()
                         
-                    VStack {
-                        Image("icons8-smoothie-64")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .clipped()
+                        VStack {
+                            Image("icons8-smoothie-64")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .clipped()
                             
-                        Text("All")
-                    }
+                            Text("All")
+                        }
                         
-                    VStack {
-                        Image("icons8-leaves-48")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .clipped()
+                        VStack {
+                            Image("icons8-leaves-48")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .clipped()
                             
-                        Text("Vegan")
-                    }
+                            Text("Vegan")
+                        }
                         
-                    VStack {
-                        Image("icons8-protein-48")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .clipped()
+                        VStack {
+                            Image("icons8-protein-48")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .clipped()
                             
-                        Text("Protein")
-                    }
+                            Text("Protein")
+                        }
                         
-                    VStack {
-                        Image("icons8-leaf-48")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .clipped()
+                        VStack {
+                            Image("icons8-leaf-48")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .clipped()
                             
-                        Text("Green")
-                    }
+                            Text("Green")
+                        }
                         
-                    VStack {
-                        Image("icons8-energy-48")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .clipped()
+                        VStack {
+                            Image("icons8-energy-48")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .clipped()
                             
-                        Text("Energy")
-                    }
+                            Text("Energy")
+                        }
                         
-                    Spacer()
-                }
-                .padding()
+                        Spacer()
+                    }
+                    .padding()
                     
-                ScrollView {
-                    // grid List
-                    LazyVGrid(columns: flexibleColumn, spacing: 10) {
-                        ForEach(filteredRecipes, id: \.self) {
-                            recipe in NavigationLink(
-                                destination: RecipeDetailView(
-                                    recipeDetail: recipe,
-                                    delete: { _ in
-                                        recipes.deleteRecipe(recipe)
-                                    }
-                                )
-                            ) {
-                                VStack {
-                                    ZStack {
-                                        // Image
-                                        if !recipe.Image.isEmpty {
-                                            AsyncImage(url: URL(string: recipe.Image)) {
-                                                image in
-                                                image.resizable()
-                                                    .frame(width: .infinity, height: 150, alignment: .topLeading)
-                                                    .clipped()
-                                                
-                                            } placeholder: {
-                                                ProgressView()
-                                            }
-                                        } else {
-                                            AsyncImage(
-                                                url: URL(string: placeHolderImage)
-                                            ) {
-                                                image in
-                                                image.resizable()
-                                                    .frame(width: .infinity, height: 100)
-                                                    .clipped()
-                                            } placeholder: {
-                                                ProgressView()
-                                            }
+                    ScrollView {
+                        // grid List
+                        LazyVGrid(columns: flexibleColumn, spacing: 10) {
+                            ForEach(filteredRecipes, id: \.self) {
+                                recipe in NavigationLink(
+                                    destination: RecipeDetailView(
+                                        recipeDetail: recipe,
+                                        delete: { _ in
+                                            recipes.deleteRecipe(recipe)
                                         }
-                                    }
-                                   
-                                    VStack(alignment: .leading, spacing: 10) {
-                                        VStack(alignment: .leading, spacing: 10) {
-                                            // Category
-                                            Text(recipe.Category)
-                                                .font(.system(size: 10))
-                                                .foregroundColor(.pink.opacity(0.6))
-                                                .fontWeight(.semibold)
+                                    )
+                                ) {
+                                    VStack {
+                                        ZStack {
+                                            // Image
+                                            if !recipe.Image.isEmpty {
+                                                AsyncImage(url: URL(string: recipe.Image)) {
+                                                    image in
+                                                    image.resizable()
+                                                        .frame(width: .infinity, height: 150, alignment: .topLeading)
+                                                        .clipped()
+                                                    
+                                                } placeholder: {
+                                                    ProgressView()
+                                                }
+                                            } else {
+                                                AsyncImage(
+                                                    url: URL(string: placeHolderImage)
+                                                ) {
+                                                    image in
+                                                    image.resizable()
+                                                        .frame(width: .infinity, height: 100)
+                                                        .clipped()
+                                                } placeholder: {
+                                                    ProgressView()
+                                                }
+                                            }
                                             
-                                            // Title
-                                            Text(recipe.Title)
-                                                .font(.system(size: 15))
-                                                .foregroundColor(.blue)
-                                                .fontWeight(.bold)
-                                        }
-                                        .padding(2)
-                                        .frame(height: 70)
-                                        
-                                        Spacer()
-                                        
-                                        HStack {
-                                            HStack {
-                                                Image(systemName: "clock")
-                                                    .accentColor(.gray)
-                                                Text("\(recipe.Time) mins")
-                                                    .font(.system(size: 10))
-                                                    .foregroundColor(.gray)
+                                            VStack {
+                                                Image(recipe.Icon)
+                                                    .resizable()
+                                                    .frame(width: 20, height: 20)
+                                                    .clipped()
                                             }
+                                            .frame(width: 30, height: 30)
+                                            .background(Color.white)
+                                            .cornerRadius(100)
+                                            .position(x: 25, y: 40)
+                                        }
+                                        
+                                        VStack(alignment: .leading, spacing: 10) {
+                                            VStack(alignment: .leading, spacing: 10) {
+                                                // Category
+                                                Text(recipe.Category)
+                                                    .font(.system(size: 10))
+                                                    .foregroundColor(.pink.opacity(0.6))
+                                                    .fontWeight(.semibold)
+                                                
+                                                // Title
+                                                Text(recipe.Title)
+                                                    .font(.system(size: 15))
+                                                    .foregroundColor(.blue)
+                                                    .fontWeight(.bold)
+                                            }
+                                            .padding(2)
+                                            .frame(height: 70)
                                             
                                             Spacer()
                                             
-                                            Image(systemName: "heart.fill")
-                                                .foregroundColor(.pink)
+                                            HStack {
+                                                HStack {
+                                                    Image(systemName: "clock")
+                                                        .accentColor(.gray)
+                                                    Text("\(recipe.Time) mins")
+                                                        .font(.system(size: 10))
+                                                        .foregroundColor(.gray)
+                                                }
+                                                
+                                                Spacer()
+                                                
+                                                Image(systemName: "heart.fill")
+                                                    .foregroundColor(.pink)
+                                            }
+                                            .padding(10)
                                         }
-                                        .padding(10)
+                                        .padding(2)
+                                        
+                                        Spacer()
                                     }
-                                    .padding(2)
-                                    
-                                    Spacer()
+                                    .frame(height: 280)
+                                    .background(Color.white)
+                                    .cornerRadius(10)
                                 }
-                                .frame(height: 280)
-                                .background(Color.white)
-                                .cornerRadius(10)
+                                .padding(8)
+                                .shadow(radius: 5)
                             }
-                            .padding(8)
-                            .shadow(radius: 5)
+                            .navigationTitle("Recipes")
                         }
-                        .navigationTitle("Recipes")
                     }
                 }
             }
-                
+            
             // Add Recipe Navigation Link
-            //            Button {
-            //                showAddRecipeView = true
-            //            } label: {
-            //                Spacer()
-            //
-            //                Image(systemName: "plus.circle")
-            //                    .resizable()
-            //                    .frame(width: 40, height: 40)
-            //                    .accentColor(.blue)
-            //
-            //                Spacer()
-            //            }
-            //            .background(Color.clear)
-            //            .padding()
-            //            .sheet(isPresented: $showAddRecipeView) {
-            //                AddRecipe(
-            //                    addRecipe: recipes.addRecipe,
-            //                    showAddRecipeView: $showAddRecipeView
-            //                )
-            //            }
-            //            .position(x: 350, y: 10)
-//            }
+            Button {
+                showAddRecipeView = true
+            } label: {
+                Spacer()
+                
+                Image(systemName: "plus.circle")
+                    .resizable()
+                    .frame(width: 40, height: 40)
+                    .accentColor(.blue)
+                
+                Spacer()
+            }
+            .background(Color.clear)
+            .padding()
+            .sheet(isPresented: $showAddRecipeView) {
+                AddRecipe(
+                    addRecipe: recipes.addRecipe,
+                    showAddRecipeView: $showAddRecipeView
+                )
+            }
         }
     }
 }

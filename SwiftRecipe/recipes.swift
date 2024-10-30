@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Recipe: Identifiable, Hashable {
     var id = UUID()
+    let Icon: String
     let Category: String
     let Title: String
     let Description: String
@@ -17,8 +18,9 @@ struct Recipe: Identifiable, Hashable {
     let Time: Int
     let Image: String
 
-    init(id: UUID = UUID(), Category: String, Title: String, Description: String, Ingredients: [String], Steps: [String], Time: Int, Image: String) {
+    init(id: UUID = UUID(), Icon: String, Category: String, Title: String, Description: String, Ingredients: [String], Steps: [String], Time: Int, Image: String) {
         self.id = id
+        self.Icon = Icon
         self.Category = Category
         self.Title = Title
         self.Description = Description
@@ -32,6 +34,7 @@ struct Recipe: Identifiable, Hashable {
 class RecipeList: ObservableObject {
     @Published var recipesArray: [Recipe] = [
         Recipe(
+            Icon: "icons8-energy-48",
             Category: "Energy",
             Title: "Pineapple Coconut Smoothie",
             Description: "If you're a fan of tropical flavors, you will love this pineapple coconut smoothie recipe.",
@@ -41,6 +44,7 @@ class RecipeList: ObservableObject {
             Image: "https://www.thespruceeats.com/thmb/0UtKVCUEwJKOV_gJhDtNZZqA4lo=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/thespruceeats.com-pineapple-coconut-smoothie-recipe-2096958-step-03-55fd63f13a174cbe9ec57fd27d1a2848.jpg"
         ),
         Recipe(
+            Icon: "icons8-protein-48",
             Category: "Protein",
             Title: "Creamy Strawberry Smoothie",
             Description: "Freshly blended strawberry smoothie is a delightful treat in the afternoon, and it makes a great evening pick-me-up.",
@@ -50,6 +54,7 @@ class RecipeList: ObservableObject {
             Image: "https://www.thespruceeats.com/thmb/PNjtOKd3Qc4XYAavTaPHOAtR1A4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/strawberry-creamy-smoothie-getty-2786-x-3577-56a6460d5f9b58b7d0e0c44a.jpg"
         ),
         Recipe(
+            Icon: "icons8-leaf-48",
             Category: "Green",
             Title: "Avocado Mango Smoothie",
             Description: "The juice and mango provide plenty of sweetness, so you won't even notice the slightly savory avocado.",
@@ -59,6 +64,7 @@ class RecipeList: ObservableObject {
             Image: "https://www.thespruceeats.com/thmb/RLDzyLxDroJvsLJ4tscR38K8fBQ=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/avocado-mango-smoothie-recipe-3377400-hero-01-5c8d20e846e0fb0001770069.jpg"
         ),
         Recipe(
+            Icon: "icons8-energy-48",
             Category: "Energy",
             Title: "Mixed Berry Smoothie",
             Description: "Smoothie with a mix of your favourite berries.",
@@ -68,6 +74,7 @@ class RecipeList: ObservableObject {
             Image: "https://www.thespruceeats.com/thmb/30mNE8tgd51KVSAQQmN7Vm1-_c0=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/mixed-berry-smoothie-2216234-hero-01-86d97765c90f47bba76d98a6d9152b62.jpg"
         ),
         Recipe(
+            Icon: "icons-protein-48",
             Category: "Protein",
             Title: "Chocolate Banana Smoothie",
             Description: "This chocolate banana smoothie recipe tastes just like a milkshake.",
@@ -77,6 +84,7 @@ class RecipeList: ObservableObject {
             Image: "https://www.thespruceeats.com/thmb/mS1_ly_8dpAP5CTWwAkvjn24sqU=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/GettyImages-88179070-5826aff03df78c6f6a67db50.jpg"
         ),
         Recipe(
+            Icon: "icons8-vegan-48",
             Category: "Vegan",
             Title: "Blueberry Tofu Smoothie",
             Description: "If you are looking for a vegan fruit smoothie or simply one that is made without dairy, this blueberry tofu smoothie is for you.",
@@ -86,6 +94,7 @@ class RecipeList: ObservableObject {
             Image: "https://www.thespruceeats.com/thmb/y3PzPMkttthZKD2B03x82njrgFo=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/blueberry-tofu-smoothie-recipe-695280-Hero_01-7872ad3697104b3c8bcf370119a61c12.jpg"
         ),
         Recipe(
+            Icon: "icons8-leaf-48",
             Category: "Green",
             Title: "Watermelon Smoothie",
             Description: "Although watermelon might not be the first ingredient you'd choose to add to a smoothie, it makes for one of the most refreshing drinks.",
@@ -95,6 +104,7 @@ class RecipeList: ObservableObject {
             Image: "https://www.thespruceeats.com/thmb/9tCbJ8N6YUeafff_VR_ns7G7Jyo=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/SES-rich-creamy-watermelon-smoothie-recipe-2097116-hero-01-450cba2f67174afca6ee6dc08a29a0bc.jpg"
         ),
         Recipe(
+            Icon: "icons8-energy-48",
             Category: "Energy",
             Title: "Virgin Miami Vice",
             Description: "The Miami vice cocktail is a retro frozen drink created sometime before the popular '80s crime drama that shares its name",
@@ -104,6 +114,7 @@ class RecipeList: ObservableObject {
             Image: "https://www.thespruceeats.com/thmb/UcYD8DaqD3XrHLLqQjjdGaT6CvI=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/virgin-miami-vice-cocktail-recipe-760381-hero-01-c32465553bb14945bbea4cf4f6060364.jpg"
         ),
         Recipe(
+            Icon: "icons8-protein-48",
             Category: "Protein",
             Title: "Banana Smoothie",
             Description: "This banana smoothie recipe requires just five simple ingredients, all of which you probably already have in your kitchen",
@@ -113,6 +124,7 @@ class RecipeList: ObservableObject {
             Image: "https://www.thespruceeats.com/thmb/vQxSVpuemdITwhENlavO-TyoWTo=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/SES-banana-smoothie-recipes-759606-hero-01-c3d4bf389b684c408d210cd185825a01.jpg"
         ),
         Recipe(
+            Icon: "icons8-vegan-48",
             Category: "Vegan",
             Title: "Strawberry Lemonade Smoothie",
             Description: "A sweet and tangy beverage to take on the go",
