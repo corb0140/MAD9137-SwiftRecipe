@@ -11,12 +11,14 @@ struct AddRecipe: View {
     var addRecipe: (Recipe) -> Void
     @Binding var showAddRecipeView: Bool
 
+    @State private var category: String = ""
     @State private var title: String = ""
     @State private var description: String = ""
     @State private var ingredient: String = ""
     @State private var ingredients: [String] = []
     @State private var step: String = ""
     @State private var steps: [String] = []
+    @State private var time: Int = 0
     @State private var imageUrl: String = ""
     @State private var showErrorMessage: Bool = false
     
@@ -163,10 +165,12 @@ struct AddRecipe: View {
                                     showErrorMessage = true
                                 } else {
                                     let newRecipe = Recipe(
+                                        Category: category,
                                         Title: title,
                                         Description: description,
                                         Ingredients: ingredients,
                                         Steps: steps,
+                                        Time: time,
                                         Image: imageUrl
                                     )
                                         

@@ -11,12 +11,14 @@ struct EditRecipe: View {
     @State var recipeDetail: Recipe
     @Binding var showEditView: Bool
     
+    @State private var category: String = ""
     @State private var title: String = ""
     @State private var description: String = ""
     @State private var ingredient = ""
     @State private var ingredients: [String] = []
     @State private var step = ""
     @State private var steps: [String] = []
+    @State private var time: Int = 0
     @State private var imageUrl: String = ""
    
     var editRecipe: (Recipe) -> Void
@@ -42,7 +44,6 @@ struct EditRecipe: View {
                                         RoundedRectangle(cornerRadius: 5)
                                             .stroke(Color.gray, lineWidth: 1)
                                     )
-                                
                             }
                                 
                             VStack(alignment: .leading, spacing: 5) {
@@ -167,10 +168,12 @@ struct EditRecipe: View {
                         action: {
                             let updatedRecipe = Recipe(
                                 id: recipeDetail.id,
+                                Category: category,
                                 Title: title,
                                 Description: description,
                                 Ingredients: ingredients,
                                 Steps: steps,
+                                Time: time,
                                 Image: imageUrl
                             )
                                 
@@ -222,10 +225,11 @@ struct EditRecipe: View {
 
 #Preview {
     EditRecipe(
-        recipeDetail: Recipe(Title: "Strawberry Lemonade Smoothie",
+        recipeDetail: Recipe(Category: "Vegan", Title: "Strawberry Lemonade Smoothie",
                              Description: "A sweet and tangy beverage to take on the go",
                              Ingredients: ["Lemonade", "Lemon Yogurt", "Frozen Strawberries"],
                              Steps: ["Place all ingredients in a blender", "cover and process 15 seconds or until blended", "Serve immediately"],
+                             Time: 6,
                              Image: "https://www.thespruceeats.com/thmb/sFNQ8AqRurVo28e4Xosj9bTdMyY=/425x300/filters:max_bytes(150000):strip_icc():format(webp)/strawberry-breakfast-smoothie-recipe-2097149-hero-02-5c1d4b2a46e0fb00014bf2ec.jpg"),
         showEditView:
         .constant(false),
