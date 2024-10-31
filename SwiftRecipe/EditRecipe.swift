@@ -215,6 +215,7 @@ struct EditRecipe: View {
                                         HStack {
                                             Text("\(index + 1).")
                                                 .font(.system(size: 15))
+                                                .foregroundStyle(Color.pink)
                                             Text("\(steps[index]).")
                                         }
                                     }
