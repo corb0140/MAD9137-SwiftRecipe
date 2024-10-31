@@ -186,18 +186,14 @@ struct ListOfRecipes: View {
                 }
             }
             
-            // Add Recipe Navigation Link
+            // Add Recipe Button & Sheet
             Button {
                 showAddRecipeView = true
             } label: {
-                Spacer()
-                
                 Image(systemName: "plus.circle")
                     .resizable()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 30, height: 30)
                     .accentColor(.blue)
-                
-                Spacer()
             }
             .background(Color.clear)
             .padding()

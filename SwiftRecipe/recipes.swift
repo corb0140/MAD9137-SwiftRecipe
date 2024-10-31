@@ -74,7 +74,7 @@ class RecipeList: ObservableObject {
             Image: "https://www.thespruceeats.com/thmb/30mNE8tgd51KVSAQQmN7Vm1-_c0=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/mixed-berry-smoothie-2216234-hero-01-86d97765c90f47bba76d98a6d9152b62.jpg"
         ),
         Recipe(
-            Icon: "icons-protein-48",
+            Icon: "icons8-protein-48",
             Category: "Protein",
             Title: "Chocolate Banana Smoothie",
             Description: "This chocolate banana smoothie recipe tastes just like a milkshake.",
@@ -84,7 +84,7 @@ class RecipeList: ObservableObject {
             Image: "https://www.thespruceeats.com/thmb/mS1_ly_8dpAP5CTWwAkvjn24sqU=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/GettyImages-88179070-5826aff03df78c6f6a67db50.jpg"
         ),
         Recipe(
-            Icon: "icons8-vegan-48",
+            Icon: "icons8-leaves-48",
             Category: "Vegan",
             Title: "Blueberry Tofu Smoothie",
             Description: "If you are looking for a vegan fruit smoothie or simply one that is made without dairy, this blueberry tofu smoothie is for you.",
@@ -124,7 +124,7 @@ class RecipeList: ObservableObject {
             Image: "https://www.thespruceeats.com/thmb/vQxSVpuemdITwhENlavO-TyoWTo=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/SES-banana-smoothie-recipes-759606-hero-01-c3d4bf389b684c408d210cd185825a01.jpg"
         ),
         Recipe(
-            Icon: "icons8-vegan-48",
+            Icon: "icons8-leaves-48",
             Category: "Vegan",
             Title: "Strawberry Lemonade Smoothie",
             Description: "A sweet and tangy beverage to take on the go",
