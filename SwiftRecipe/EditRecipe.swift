@@ -27,7 +27,8 @@ struct EditRecipe: View {
     var updateRecipeDetail: (Recipe) -> Void
   
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 15) {
+            // Scroll view
             ScrollView {
                 Section(header: Text("Edit Recipe")
                     .font(.title)
@@ -35,14 +36,17 @@ struct EditRecipe: View {
                     .foregroundColor(.pink)
                     .padding(5)
                 ) {
+                    // VStack for entire form
                     VStack(spacing: 25) {
+                        // Icon buttons VStack
                         VStack(alignment: .leading, spacing: 15) {
-                            VStack(alignment: .leading, spacing: 5) {
+                            VStack(alignment: .center) {
                                 Text("Select Icon")
                                 
                                 HStack(spacing: 28) {
                                     Spacer()
                                     
+                                    // Vegan button
                                     Button(action: {
                                         selectedIcon = "icons8-leaves-48"
                                         category = "Vegan"
@@ -53,6 +57,7 @@ struct EditRecipe: View {
                                             .clipped()
                                     }
                                     
+                                    // Protein button
                                     Button(action: {
                                         selectedIcon = "icons8-protein-48"
                                         category = "Protein"
@@ -63,6 +68,7 @@ struct EditRecipe: View {
                                             .clipped()
                                     }
                                     
+                                    // Green button
                                     Button(action: {
                                         selectedIcon = "icons8-leaf-48"
                                         category = "Green"
@@ -73,6 +79,7 @@ struct EditRecipe: View {
                                             .clipped()
                                     }
                                     
+                                    // Energy button
                                     Button(action: {
                                         selectedIcon = "icons8-energy-48"
                                         category = "Energy"
@@ -87,7 +94,7 @@ struct EditRecipe: View {
                                 }
                             }
                             
-                            // Icon
+                            // Icon field
                             VStack(alignment: .leading, spacing: 5) {
                                 TextField("Select Icon Above", text: $selectedIcon)
                                     .disabled(true)
@@ -98,7 +105,7 @@ struct EditRecipe: View {
                                     )
                             }
                             
-                            // Category
+                            // Category field
                             VStack(alignment: .leading, spacing: 5) {
                                 TextField("Category Selected With Icon", text: $category)
                                     .disabled(true)
@@ -109,7 +116,7 @@ struct EditRecipe: View {
                                     )
                             }
                             
-                            // Time
+                            // Time field
                             VStack(alignment: .leading, spacing: 5) {
                                 TextField(
                                     "Enter Time",
@@ -123,7 +130,7 @@ struct EditRecipe: View {
                                 )
                             }
                             
-                            // Title
+                            // Title field
                             VStack(alignment: .leading, spacing: 5) {
                                 TextField("Enter Title", text: $title)
                                     .padding(10)
@@ -133,7 +140,7 @@ struct EditRecipe: View {
                                     )
                             }
                                 
-                            // Description
+                            // Description field
                             VStack(alignment: .leading, spacing: 5) {
                                 TextField("Enter Description", text: $description)
                                     .padding(10)
@@ -144,7 +151,7 @@ struct EditRecipe: View {
                             }
                         }
                             
-                        // Ingredients
+                        // Ingredients field
                         VStack(alignment: .leading) {
                             TextField("Enter Ingredient", text: $ingredient)
                                 .padding(10)
@@ -192,7 +199,7 @@ struct EditRecipe: View {
                             .cornerRadius(5)
                         }
                             
-                        // Steps
+                        // Steps field
                         VStack(alignment: .leading) {
                             TextField("Enter Step", text: $step)
                                 .padding(10)
@@ -267,7 +274,9 @@ struct EditRecipe: View {
                     }
                 }
                     
+                // Edit and cancel buttons HStack
                 HStack {
+                    // Edit button
                     Button(
                         action: {
                             if title.isEmpty || description.isEmpty || steps.isEmpty || ingredients.isEmpty || selectedIcon.isEmpty || category.isEmpty || time == 0 {
@@ -308,6 +317,7 @@ struct EditRecipe: View {
                             Button("OK", role: .cancel) {}
                         }
                         
+                    // Cancel button
                     Button(
                         action: {
                             showEditView = false

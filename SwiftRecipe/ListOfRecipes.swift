@@ -31,12 +31,14 @@ struct ListOfRecipes: View {
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            // Navigation View
-            NavigationView {
+            // Navigation Stack
+            NavigationStack {
                 VStack {
+                    // Buttons HStack
                     HStack(spacing: 20) {
                         Spacer()
                         
+                        // Button for all
                         Button(action: {
                             filterByCategory = "All"
                         }) {
@@ -56,6 +58,7 @@ struct ListOfRecipes: View {
                             }
                         }
                         
+                        // Button for vegan
                         Button(action: {
                             filterByCategory = "Vegan"
                         }) {
@@ -75,6 +78,7 @@ struct ListOfRecipes: View {
                             }
                         }
                         
+                        // Button for protein
                         Button(action: {
                             filterByCategory = "Protein"
                         }) {
@@ -94,6 +98,7 @@ struct ListOfRecipes: View {
                             }
                         }
                         
+                        // Button for green
                         Button(action: {
                             filterByCategory = "Green"
                         }) {
@@ -113,6 +118,7 @@ struct ListOfRecipes: View {
                             }
                         }
                         
+                        // Button for energy
                         Button(action: {
                             filterByCategory = "Energy"
                         }) {
@@ -137,9 +143,11 @@ struct ListOfRecipes: View {
                     .padding(.horizontal, 5)
                     .padding(.vertical, 20)
                     
+                    // Scroll View
                     ScrollView {
-                        // grid List
+                        // Grid List
                         LazyVGrid(columns: flexibleColumn, spacing: 10) {
+                            // Loop through list with filter
                             ForEach(filteredRecipes, id: \.self) {
                                 recipe in NavigationLink(
                                     destination: RecipeDetailView(
@@ -148,14 +156,18 @@ struct ListOfRecipes: View {
                                             recipes.deleteRecipe(recipe)
                                         }
                                     )
+                                    // Show add button when on this view
                                     .onAppear {
                                         showDetailView = true
                                     }
+                                    // Hide add button when leaving this view
                                     .onDisappear {
                                         showDetailView = false
                                     }
                                 ) {
+                                    // Recipe Card
                                     VStack {
+                                        // Recipe card image and icon ZStack
                                         ZStack {
                                             // Image
                                             if !recipe.Image.isEmpty {
@@ -181,6 +193,7 @@ struct ListOfRecipes: View {
                                                 }
                                             }
                                             
+                                            // Recipe Icon
                                             VStack {
                                                 Image(recipe.Icon)
                                                     .resizable()
@@ -193,6 +206,7 @@ struct ListOfRecipes: View {
                                             .position(x: 25, y: 40)
                                         }
                                         
+                                        // Recipe card info VStack
                                         VStack(alignment: .leading, spacing: 10) {
                                             VStack(alignment: .leading, spacing: 10) {
                                                 // Category
@@ -212,7 +226,9 @@ struct ListOfRecipes: View {
                                             
                                             Spacer()
                                             
+                                            // Time and like button HStack
                                             HStack {
+                                                // Time
                                                 HStack {
                                                     Image(systemName: "clock")
                                                         .accentColor(.gray)
@@ -223,6 +239,7 @@ struct ListOfRecipes: View {
                                                 
                                                 Spacer()
                                                 
+                                                // Like recipe button. change icon on click
                                                 Button(action: {
                                                     if likedRecipes.contains(recipe.Title) {
                                                         likedRecipes.remove(recipe.Title)
@@ -248,6 +265,7 @@ struct ListOfRecipes: View {
                                 .shadow(radius: 5)
                             }
                             .navigationTitle("Recipes")
+                            .navigationBarTitleDisplayMode(.inline)
                         }
                     }
                 }
@@ -263,7 +281,6 @@ struct ListOfRecipes: View {
                         .frame(width: 30, height: 30)
                         .accentColor(.blue)
                 }
-                .background(Color.clear)
                 .padding()
                 .sheet(isPresented: $showAddRecipeView) {
                     AddRecipe(

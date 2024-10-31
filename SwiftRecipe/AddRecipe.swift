@@ -25,6 +25,7 @@ struct AddRecipe: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
+            // Scroll view
             ScrollView {
                 Section(header: Text("Add Recipe")
                     .font(.title)
@@ -32,14 +33,17 @@ struct AddRecipe: View {
                     .foregroundColor(.pink)
                     .padding(5)
                 ) {
+                    // VStack for entire form
                     VStack(spacing: 25) {
                         VStack(alignment: .leading, spacing: 15) {
+                            // Icon buttons VStack
                             VStack(alignment: .center) {
                                 Text("Select Icon")
                                 
                                 HStack(spacing: 28) {
                                     Spacer()
                                     
+                                    // Vegan button
                                     Button(action: {
                                         selectedIcon = "icons8-leaves-48"
                                         category = "Vegan"
@@ -50,6 +54,7 @@ struct AddRecipe: View {
                                             .clipped()
                                     }
                                     
+                                    // Protein button
                                     Button(action: {
                                         selectedIcon = "icons8-protein-48"
                                         category = "Protein"
@@ -60,6 +65,7 @@ struct AddRecipe: View {
                                             .clipped()
                                     }
                                     
+                                    // Green button
                                     Button(action: {
                                         selectedIcon = "icons8-leaf-48"
                                         category = "Green"
@@ -70,6 +76,7 @@ struct AddRecipe: View {
                                             .clipped()
                                     }
                                     
+                                    // Energy button
                                     Button(action: {
                                         selectedIcon = "icons8-energy-48"
                                         category = "Energy"
@@ -84,7 +91,7 @@ struct AddRecipe: View {
                                 }
                             }
                             
-                            // Icon
+                            // Icon field
                             VStack(alignment: .leading, spacing: 5) {
                                 TextField("Select Icon Above", text: $selectedIcon)
                                     .disabled(true)
@@ -95,7 +102,7 @@ struct AddRecipe: View {
                                     )
                             }
                             
-                            // Category
+                            // Category field
                             VStack(alignment: .leading, spacing: 5) {
                                 TextField("Category Selected With Icon", text: $category)
                                     .disabled(true)
@@ -106,7 +113,7 @@ struct AddRecipe: View {
                                     )
                             }
                             
-                            // Time
+                            // Time field
                             VStack(alignment: .leading, spacing: 5) {
                                 TextField(
                                     "Enter Time",
@@ -120,7 +127,7 @@ struct AddRecipe: View {
                                 )
                             }
                             
-                            // Title
+                            // Title field
                             VStack(alignment: .leading, spacing: 5) {
                                 TextField("Enter Title", text: $title)
                                     .padding(10)
@@ -130,7 +137,7 @@ struct AddRecipe: View {
                                     )
                             }
                             
-                            // Description
+                            // Description field
                             VStack(alignment: .leading, spacing: 5) {
                                 TextField("Enter Description", text: $description)
                                     .padding(10)
@@ -141,7 +148,7 @@ struct AddRecipe: View {
                             }
                         }
                         
-                        // Ingredients
+                        // Ingredients field
                         VStack(alignment: .leading) {
                             TextField("Enter Ingredient", text: $ingredient)
                                 .padding(10)
@@ -189,7 +196,7 @@ struct AddRecipe: View {
                             .cornerRadius(5)
                         }
                         
-                        // Steps
+                        // Steps field
                         VStack(alignment: .leading) {
                             TextField("Enter Step", text: $step)
                                 .padding(10)
@@ -237,7 +244,7 @@ struct AddRecipe: View {
                             .cornerRadius(5)
                         }
                         
-                        // Image
+                        // Image field
                         VStack(alignment: .leading) {
                             TextField("Enter Image Url", text: $imageUrl)
                                 .padding(10)
@@ -258,6 +265,7 @@ struct AddRecipe: View {
                             }
                         }
                         
+                        // Add and cancel buttons HStack
                         HStack {
                             // Add Recipe button
                             Button(
@@ -307,6 +315,7 @@ struct AddRecipe: View {
                                     Button("OK", role: .cancel) {}
                                 }
                             
+                            // Cancel button
                             Button(action: {
                                 showAddRecipeView = false
                             }) {

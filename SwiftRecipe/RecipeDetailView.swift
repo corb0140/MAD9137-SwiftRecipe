@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RecipeDetailView: View {
+    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var recipes: RecipeList
     @State var recipeDetail: Recipe
     
@@ -53,38 +54,10 @@ struct RecipeDetailView: View {
                 Spacer()
             }
             
-            // Edit button
-            VStack {
-                HStack {
-                    Spacer()
-                    
-                    Button(action: {
-                        showEditView = true
-                    }) {
-                        Image(systemName: "pencil")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                            .foregroundStyle(.pink)
-                            .frame(width: 45, height: 45)
-                            .background(Color.white)
-                            .cornerRadius(50)
-                            .clipped()
-                    }
-                    //                .position(x: 450, y: 50)
-                    .sheet(isPresented: $showEditView) {
-                        EditRecipe(
-                            recipeDetail: recipeDetail,
-                            showEditView: $showEditView,
-                            editRecipe: recipes.editRecipe,
-                            updateRecipeDetail: updateRecipeDetail
-                        )
-                    }
-                }
-                .frame(maxWidth: 350)
-                
-                Spacer()
-            }
-            .padding(.top, 25)
+            // Background shader to over image
+            VStack {}
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.black.opacity(0.3))
             
             // Details
             VStack(alignment: .leading) {
@@ -117,36 +90,61 @@ struct RecipeDetailView: View {
                   
                     Spacer()
                     
-                    // Delete Button
-                    Button(action: {
-                        showActionSheet = true
-                    }) {
-                        Image(systemName: "trash.circle.fill")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.white, .red)
-                            .clipped()
-                    }
-                    .actionSheet(isPresented: $showActionSheet) {
-                        ActionSheet(
-                            title: Text("Delete Recipe"),
-                            message: Text(
-                                "Are you sure you want to delete this recipe?"
-                            ),
-                            buttons: [
-                                .destructive(Text("Delete")) {
-                                    delete(recipeDetail)
-                                },
-                                .cancel(Text("Cancel"))
-                            ]
-                        )
+                    // Delete and edit button VStack
+                    VStack {
+                        // Delete Button
+                        Button(action: {
+                            showActionSheet = true
+                        }) {
+                            Image(systemName: "trash.circle.fill")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.white, .red)
+                                .clipped()
+                        }
+                        .actionSheet(isPresented: $showActionSheet) {
+                            ActionSheet(
+                                title: Text("Delete Recipe"),
+                                message: Text(
+                                    "Are you sure you want to delete this recipe?"
+                                ),
+                                buttons: [
+                                    .destructive(Text("Delete")) {
+                                        delete(recipeDetail)
+                                    },
+                                    .cancel(Text("Cancel"))
+                                ]
+                            )
+                        }
+                        
+                        // Edit button
+                        VStack {
+                            Button(action: {
+                                showEditView = true
+                            }) {
+                                Image(systemName: "pencil.circle.fill")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .symbolRenderingMode(.palette)
+                                    .foregroundStyle(.white, .pink.opacity(0.8))
+                                    .clipped()
+                            }
+                            .sheet(isPresented: $showEditView) {
+                                EditRecipe(
+                                    recipeDetail: recipeDetail,
+                                    showEditView: $showEditView,
+                                    editRecipe: recipes.editRecipe,
+                                    updateRecipeDetail: updateRecipeDetail
+                                )
+                            }
+                        }
                     }
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 30)
                 
-                // Picker for ingredients and steps between dividers
+                // Picker for ingredients and steps, between dividers
                 Divider()
                     .frame(height: 2)
                     .background(Color.gray.opacity(0.4))
@@ -227,6 +225,20 @@ struct RecipeDetailView: View {
             .cornerRadius(50)
             .shadow(radius: 5)
             .padding(.bottom, -372)
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "arrowshape.backward.circle")
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundStyle(Color.pink)
+                        .frame(width: 40, height: 40)
+                }
+            }
         }
         .edgesIgnoringSafeArea(.all)
     }
