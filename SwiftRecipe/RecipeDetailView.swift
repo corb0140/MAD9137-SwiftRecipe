@@ -44,7 +44,7 @@ struct RecipeDetailView: View {
                     ) {
                         image in
                         image.resizable()
-                            .frame(width: .infinity, height: 100)
+                            .frame(width: .infinity, height: 450)
                             .clipped()
                     } placeholder: {
                         ProgressView()

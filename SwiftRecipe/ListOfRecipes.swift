@@ -174,19 +174,17 @@ struct ListOfRecipes: View {
                                                 AsyncImage(url: URL(string: recipe.Image)) {
                                                     image in
                                                     image.resizable()
-                                                        .frame(width: .infinity, height: 150, alignment: .topLeading)
+                                                        .frame(maxWidth: .infinity, maxHeight: 150, alignment: .topLeading)
                                                         .clipped()
                                                     
                                                 } placeholder: {
                                                     ProgressView()
                                                 }
                                             } else {
-                                                AsyncImage(
-                                                    url: URL(string: placeHolderImage)
-                                                ) {
+                                                AsyncImage(url: URL(string: placeHolderImage)) {
                                                     image in
                                                     image.resizable()
-                                                        .frame(width: .infinity, height: 150, alignment: .topLeading)
+                                                        .frame(maxWidth: .infinity, maxHeight: 150, alignment: .topLeading)
                                                         .clipped()
                                                 } placeholder: {
                                                     ProgressView()
