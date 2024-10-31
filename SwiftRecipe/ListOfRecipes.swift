@@ -13,6 +13,7 @@ struct ListOfRecipes: View {
     @State private var showAddRecipeView: Bool = false
     @State private var placeHolderImage: String = "https://archive.org/download/placeholder-image/placeholder-image.jpg"
     @State private var likedRecipes: Set<String> = []
+    @State private var showDetailView: Bool = false
     
     var filteredRecipes: [Recipe] {
         if filterByCategory == "All" {
@@ -147,6 +148,12 @@ struct ListOfRecipes: View {
                                             recipes.deleteRecipe(recipe)
                                         }
                                     )
+                                    .onAppear {
+                                        showDetailView = true
+                                    }
+                                    .onDisappear {
+                                        showDetailView = false
+                                    }
                                 ) {
                                     VStack {
                                         ZStack {
@@ -247,21 +254,23 @@ struct ListOfRecipes: View {
             }
             
             // Add Recipe Button & Sheet
-            Button {
-                showAddRecipeView = true
-            } label: {
-                Image(systemName: "plus.circle")
-                    .resizable()
-                    .frame(width: 30, height: 30)
-                    .accentColor(.blue)
-            }
-            .background(Color.clear)
-            .padding()
-            .sheet(isPresented: $showAddRecipeView) {
-                AddRecipe(
-                    addRecipe: recipes.addRecipe,
-                    showAddRecipeView: $showAddRecipeView
-                )
+            if !showDetailView {
+                Button {
+                    showAddRecipeView = true
+                } label: {
+                    Image(systemName: "plus.circle")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .accentColor(.blue)
+                }
+                .background(Color.clear)
+                .padding()
+                .sheet(isPresented: $showAddRecipeView) {
+                    AddRecipe(
+                        addRecipe: recipes.addRecipe,
+                        showAddRecipeView: $showAddRecipeView
+                    )
+                }
             }
         }
     }

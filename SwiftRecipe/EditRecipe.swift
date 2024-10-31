@@ -10,16 +10,17 @@ import SwiftUI
 struct EditRecipe: View {
     @State var recipeDetail: Recipe
     @Binding var showEditView: Bool
-    
-    @State private var icon: String = ""
+    @State private var showErrorMessage: Bool = false
+
+    @State private var selectedIcon: String = ""
     @State private var category: String = ""
+    @State private var time: Int = 0
     @State private var title: String = ""
     @State private var description: String = ""
-    @State private var ingredient = ""
+    @State private var ingredient: String = ""
     @State private var ingredients: [String] = []
-    @State private var step = ""
+    @State private var step: String = ""
     @State private var steps: [String] = []
-    @State private var time: Int = 0
     @State private var imageUrl: String = ""
    
     var editRecipe: (Recipe) -> Void
@@ -31,30 +32,113 @@ struct EditRecipe: View {
                 Section(header: Text("Edit Recipe")
                     .font(.title)
                     .fontWeight(.bold)
-                    .foregroundColor(.teal)
+                    .foregroundColor(.pink)
+                    .padding(5)
                 ) {
                     VStack(spacing: 25) {
                         VStack(alignment: .leading, spacing: 15) {
                             VStack(alignment: .leading, spacing: 5) {
-                                Text("Title:")
-                                    .font(.title3)
-                                    .foregroundColor(.gray)
-                                TextField("Title", text: $title)
+                                Text("Select Icon")
+                                
+                                HStack(spacing: 28) {
+                                    Spacer()
+                                    
+                                    Button(action: {
+                                        selectedIcon = "icons8-leaves-48"
+                                        category = "Vegan"
+                                    }) {
+                                        Image("icons8-leaves-48")
+                                            .resizable()
+                                            .frame(width: 30, height: 30)
+                                            .clipped()
+                                    }
+                                    
+                                    Button(action: {
+                                        selectedIcon = "icons8-protein-48"
+                                        category = "Protein"
+                                    }) {
+                                        Image("icons8-protein-48")
+                                            .resizable()
+                                            .frame(width: 30, height: 30)
+                                            .clipped()
+                                    }
+                                    
+                                    Button(action: {
+                                        selectedIcon = "icons8-leaf-48"
+                                        category = "Green"
+                                    }) {
+                                        Image("icons8-leaf-48")
+                                            .resizable()
+                                            .frame(width: 30, height: 30)
+                                            .clipped()
+                                    }
+                                    
+                                    Button(action: {
+                                        selectedIcon = "icons8-energy-48"
+                                        category = "Energy"
+                                    }) {
+                                        Image("icons8-energy-48")
+                                            .resizable()
+                                            .frame(width: 30, height: 30)
+                                            .clipped()
+                                    }
+                                    
+                                    Spacer()
+                                }
+                            }
+                            
+                            // Icon
+                            VStack(alignment: .leading, spacing: 5) {
+                                TextField("Select Icon Above", text: $selectedIcon)
+                                    .disabled(true)
                                     .padding(10)
                                     .overlay(
-                                        RoundedRectangle(cornerRadius: 5)
+                                        RoundedRectangle(cornerRadius: 2)
+                                            .stroke(Color.gray, lineWidth: 1)
+                                    )
+                            }
+                            
+                            // Category
+                            VStack(alignment: .leading, spacing: 5) {
+                                TextField("Category Selected With Icon", text: $category)
+                                    .disabled(true)
+                                    .padding(10)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 2)
+                                            .stroke(Color.gray, lineWidth: 1)
+                                    )
+                            }
+                            
+                            // Time
+                            VStack(alignment: .leading, spacing: 5) {
+                                TextField(
+                                    "Enter Time",
+                                    value: $time,
+                                    formatter: NumberFormatter()
+                                )
+                                .padding(10)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 2)
+                                        .stroke(Color.gray, lineWidth: 1)
+                                )
+                            }
+                            
+                            // Title
+                            VStack(alignment: .leading, spacing: 5) {
+                                TextField("Enter Title", text: $title)
+                                    .padding(10)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 2)
                                             .stroke(Color.gray, lineWidth: 1)
                                     )
                             }
                                 
+                            // Description
                             VStack(alignment: .leading, spacing: 5) {
-                                Text("Description:")
-                                    .font(.title3)
-                                    .foregroundColor(.gray)
-                                TextField("Description", text: $description)
+                                TextField("Enter Description", text: $description)
                                     .padding(10)
                                     .overlay(
-                                        RoundedRectangle(cornerRadius: 5)
+                                        RoundedRectangle(cornerRadius: 2)
                                             .stroke(Color.gray, lineWidth: 1)
                                     )
                             }
@@ -62,30 +146,36 @@ struct EditRecipe: View {
                             
                         // Ingredients
                         VStack(alignment: .leading) {
-                            TextField("Ingredient", text: $ingredient)
+                            TextField("Enter Ingredient", text: $ingredient)
                                 .padding(10)
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: 5)
+                                    RoundedRectangle(cornerRadius: 2)
                                         .stroke(Color.gray, lineWidth: 1)
                                 )
-                                
+                            
                             // See Ingredients Currently In Array
                             ForEach(ingredients.indices, id: \.self) { index in
                                 HStack {
-                                    Text(ingredients[index])
-                                        
+                                    HStack(alignment: .center) {
+                                        Circle()
+                                            .frame(width: 5, height: 5)
+                                            .foregroundColor(Color.pink)
+                                        Text(ingredients[index])
+                                    }
+                                
                                     Spacer()
-                                        
+                                    
                                     // Remove Ingredient
                                     Button(action: {
                                         ingredients.remove(at: index)
                                     }) {
-                                        Text("Remove").foregroundColor(.red)
+                                        Image(systemName: "minus.circle")
+                                            .foregroundColor(.red)
                                     }
                                 }
                             }
-                                
-                            // Add Ingredient
+                            
+                            // Add Ingredient Button
                             Button(action: {
                                 if !ingredient.isEmpty {
                                     ingredients.append(ingredient)
@@ -96,37 +186,44 @@ struct EditRecipe: View {
                                     .foregroundColor(.white)
                                     .padding(9)
                             }
-                            .background(Color.blue)
+                            .padding(2)
+                            .frame(width: 150)
+                            .background(Color.pink.opacity(0.7))
                             .cornerRadius(5)
-                            .buttonStyle(BorderedButtonStyle())
                         }
                             
-                        // Step
+                        // Steps
                         VStack(alignment: .leading) {
-                            TextField("Step", text: $step)
+                            TextField("Enter Step", text: $step)
                                 .padding(10)
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: 5)
+                                    RoundedRectangle(cornerRadius: 2)
                                         .stroke(Color.gray, lineWidth: 1)
                                 )
-                                
+                            
                             // See Steps Currently In Array
                             ForEach(steps.indices, id: \.self) { index in
-                                HStack {
-                                    Text(steps[index])
-                                        
+                                HStack(alignment: .top) {
+                                    VStack {
+                                        HStack {
+                                            Text("\(index + 1).")
+                                                .font(.system(size: 15))
+                                            Text("\(steps[index]).")
+                                        }
+                                    }
                                     Spacer()
-                                        
-                                    // Remove Step
+                                    
+                                    // Remove Item
                                     Button(action: {
                                         steps.remove(at: index)
                                     }) {
-                                        Text("Remove").foregroundColor(.red)
+                                        Image(systemName: "minus.circle")
+                                            .foregroundColor(.red)
                                     }
                                 }
                             }
-                                
-                            // Add Step
+                            
+                            // Add Step Button
                             Button(action: {
                                 if !step.isEmpty {
                                     steps.append(step)
@@ -137,14 +234,20 @@ struct EditRecipe: View {
                                     .foregroundColor(.white)
                                     .padding(9)
                             }
-                            .background(Color.blue)
+                            .padding(2)
+                            .frame(width: 150)
+                            .background(Color.pink.opacity(0.7))
                             .cornerRadius(5)
-                            .buttonStyle(BorderedButtonStyle())
                         }
                             
                         // Image
                         VStack(alignment: .leading, spacing: 30) {
-                            TextField("Image Url", text: $imageUrl)
+                            TextField("Enter Image Url", text: $imageUrl)
+                                .padding(10)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 2)
+                                        .stroke(Color.gray, lineWidth: 1)
+                                )
                                 
                             if !imageUrl.isEmpty {
                                 AsyncImage(url: URL(string: imageUrl)) {
@@ -155,7 +258,7 @@ struct EditRecipe: View {
                                         .clipped()
                                         .shadow(color: .gray, radius: 5, x: 0, y: 5)
                                 } placeholder: {
-                                    ProgressView()
+                                    Text("")
                                 }
                             } else {
                                 Text("No Image Provided")
@@ -167,33 +270,43 @@ struct EditRecipe: View {
                 HStack {
                     Button(
                         action: {
-                            let updatedRecipe = Recipe(
-                                id: recipeDetail.id,
-                                Icon: icon,
-                                Category: category,
-                                Title: title,
-                                Description: description,
-                                Ingredients: ingredients,
-                                Steps: steps,
-                                Time: time,
-                                Image: imageUrl
-                            )
-                                
-                            updateRecipeDetail(updatedRecipe)
-                            editRecipe(updatedRecipe)
-                            showEditView = false
-                                
+                            if title.isEmpty || description.isEmpty || steps.isEmpty || ingredients.isEmpty || selectedIcon.isEmpty || category.isEmpty || time == 0 {
+                                showErrorMessage = true
+                            } else {
+                                let updatedRecipe = Recipe(
+                                    id: recipeDetail.id,
+                                    Icon: selectedIcon,
+                                    Category: category,
+                                    Title: title,
+                                    Description: description,
+                                    Ingredients: ingredients,
+                                    Steps: steps,
+                                    Time: time,
+                                    Image: imageUrl
+                                )
+                                    
+                                updateRecipeDetail(updatedRecipe)
+                                editRecipe(updatedRecipe)
+                                showEditView = false
+                            }
+                            
                         }) {
                             Text("Update Recipe")
                                 .font(.subheadline)
-                                .frame(width: 110)
-                                .padding(18)
+                                .padding(9)
                                 .foregroundColor(.white)
-                                .background(Color.blue)
-                                .cornerRadius(5)
+                                .frame(width: 120)
                         }
-                        .padding(.top, 8)
-                        .frame(width: .infinity)
+                        .padding(4)
+                        .frame(width: 150)
+                        .background(Color.pink)
+                        .cornerRadius(5)
+                        .alert(
+                            "All fields except imageUrl must be filled",
+                            isPresented: $showErrorMessage
+                        ) {
+                            Button("OK", role: .cancel) {}
+                        }
                         
                     Button(
                         action: {
@@ -201,17 +314,22 @@ struct EditRecipe: View {
                         }) {
                             Text("Cancel")
                                 .font(.subheadline)
-                                .frame(width: 110)
-                                .padding(18)
-                                .background(Color.red)
+                                .padding(9)
                                 .foregroundColor(.white)
-                                .cornerRadius(5)
+                                .frame(width: 120)
                         }
-                        .padding(.top, 8)
+                        .padding(4)
+                        .frame(width: 150)
+                        .background(Color.red)
+                        .cornerRadius(5)
                 }
+                .padding(10)
             }
         }
         .onAppear {
+            selectedIcon = recipeDetail.Icon
+            category = recipeDetail.Category
+            time = recipeDetail.Time
             title = recipeDetail.Title
             description = recipeDetail.Description
             ingredients = recipeDetail.Ingredients

@@ -24,6 +24,7 @@ struct RecipeDetailView: View {
     
     var body: some View {
         ZStack {
+            // Image
             VStack {
                 if !recipeDetail.Image.isEmpty {
                     AsyncImage(url: URL(string: recipeDetail.Image)) {
@@ -52,40 +53,100 @@ struct RecipeDetailView: View {
                 Spacer()
             }
             
+            // Edit button
+            VStack {
+                HStack {
+                    Spacer()
+                    
+                    Button(action: {
+                        showEditView = true
+                    }) {
+                        Image(systemName: "pencil")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .foregroundStyle(.pink)
+                            .frame(width: 45, height: 45)
+                            .background(Color.white)
+                            .cornerRadius(50)
+                            .clipped()
+                    }
+                    //                .position(x: 450, y: 50)
+                    .sheet(isPresented: $showEditView) {
+                        EditRecipe(
+                            recipeDetail: recipeDetail,
+                            showEditView: $showEditView,
+                            editRecipe: recipes.editRecipe,
+                            updateRecipeDetail: updateRecipeDetail
+                        )
+                    }
+                }
+                .frame(maxWidth: 350)
+                
+                Spacer()
+            }
+            .padding(.top, 25)
+            
+            // Details
             VStack(alignment: .leading) {
                 HStack(alignment: .top, spacing: 20) {
+                    // Icon
                     Image(recipeDetail.Icon)
                         .resizable()
-                        .frame(width: 20, height: 20)
+                        .frame(width: 30, height: 30)
                         .clipped()
                     
                     VStack(alignment: .leading, spacing: 10) {
+                        // Category
                         Text(recipeDetail.Category)
                             .font(.system(size: 15))
                             .foregroundColor(.pink.opacity(0.6))
                             .fontWeight(.semibold)
                         
+                        // Title
                         Text(recipeDetail.Title)
-                            .font(.system(size: 25))
+                            .font(.system(size: 20))
                             .foregroundColor(.blue)
                             .fontWeight(.bold)
-                        
+                           
+                        // Clock Icon
                         HStack {
                             Image(systemName: "clock")
                             Text("\(recipeDetail.Time) Minutes")
                         }
                     }
-                    
+                  
                     Spacer()
-                    Image(systemName: "heart.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(.pink)
-                        .clipped()
+                    
+                    // Delete Button
+                    Button(action: {
+                        showActionSheet = true
+                    }) {
+                        Image(systemName: "trash.circle.fill")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.white, .red)
+                            .clipped()
+                    }
+                    .actionSheet(isPresented: $showActionSheet) {
+                        ActionSheet(
+                            title: Text("Delete Recipe"),
+                            message: Text(
+                                "Are you sure you want to delete this recipe?"
+                            ),
+                            buttons: [
+                                .destructive(Text("Delete")) {
+                                    delete(recipeDetail)
+                                },
+                                .cancel(Text("Cancel"))
+                            ]
+                        )
+                    }
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 30)
                 
+                // Picker for ingredients and steps between dividers
                 Divider()
                     .frame(height: 2)
                     .background(Color.gray.opacity(0.4))
@@ -105,6 +166,7 @@ struct RecipeDetailView: View {
                     .background(Color.gray.opacity(0.4))
                     .padding(.horizontal, 10)
                 
+                // View for ingredients and steps picker
                 if selected == 0 {
                     ScrollView {
                         HStack {

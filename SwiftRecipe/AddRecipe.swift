@@ -10,9 +10,9 @@ import SwiftUI
 struct AddRecipe: View {
     var addRecipe: (Recipe) -> Void
     @Binding var showAddRecipeView: Bool
-    @State private var selectedIcon: String = ""
+    @State private var showErrorMessage: Bool = false
 
-    @State private var icon: String = ""
+    @State private var selectedIcon: String = ""
     @State private var category: String = ""
     @State private var time: Int = 0
     @State private var title: String = ""
@@ -21,18 +21,18 @@ struct AddRecipe: View {
     @State private var ingredients: [String] = []
     @State private var step: String = ""
     @State private var steps: [String] = []
-    @State private var imageUrl: String = "https://www.thespruceeats.com/thmb/30mNE8tgd51KVSAQQmN7Vm1-_c0=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/mixed-berry-smoothie-2216234-hero-01-86d97765c90f47bba76d98a6d9152b62.jpg"
-    @State private var showErrorMessage: Bool = false
+    @State private var imageUrl: String = ""
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
-            Section(header: Text("Add Recipe")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.pink)
-            ) {
-                VStack(spacing: 25) {
-                    ScrollView {
+            ScrollView {
+                Section(header: Text("Add Recipe")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.pink)
+                    .padding(5)
+                ) {
+                    VStack(spacing: 25) {
                         VStack(alignment: .leading, spacing: 15) {
                             VStack(alignment: .center) {
                                 Text("Select Icon")
@@ -153,15 +153,21 @@ struct AddRecipe: View {
                             // See Ingredients Currently In Array
                             ForEach(ingredients.indices, id: \.self) { index in
                                 HStack {
-                                    Text(ingredients[index])
-                                    
+                                    HStack(alignment: .center) {
+                                        Circle()
+                                            .frame(width: 5, height: 5)
+                                            .foregroundColor(Color.pink)
+                                        Text(ingredients[index])
+                                    }
+                                
                                     Spacer()
                                     
                                     // Remove Ingredient
                                     Button(action: {
                                         ingredients.remove(at: index)
                                     }) {
-                                        Text("Remove").foregroundColor(.red)
+                                        Image(systemName: "minus.circle")
+                                            .foregroundColor(.red)
                                     }
                                 }
                             }
@@ -194,16 +200,22 @@ struct AddRecipe: View {
                             
                             // See Steps Currently In Array
                             ForEach(steps.indices, id: \.self) { index in
-                                HStack {
-                                    Text(steps[index])
-                                    
+                                HStack(alignment: .top) {
+                                    VStack {
+                                        HStack {
+                                            Text("\(index + 1).")
+                                                .font(.system(size: 15))
+                                            Text("\(steps[index]).")
+                                        }
+                                    }
                                     Spacer()
                                     
                                     // Remove Item
                                     Button(action: {
                                         steps.remove(at: index)
                                     }) {
-                                        Text("Remove").foregroundColor(.red)
+                                        Image(systemName: "minus.circle")
+                                            .foregroundColor(.red)
                                     }
                                 }
                             }
@@ -267,7 +279,7 @@ struct AddRecipe: View {
                                         addRecipe(newRecipe)
                                         showAddRecipeView = false
                                         
-                                        icon = ""
+                                        selectedIcon = ""
                                         category = ""
                                         time = 0
                                         title = ""
