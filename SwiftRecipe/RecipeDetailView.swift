@@ -111,6 +111,7 @@ struct RecipeDetailView: View {
                                 ),
                                 buttons: [
                                     .destructive(Text("Delete")) {
+                                        presentationMode.wrappedValue.dismiss()
                                         delete(recipeDetail)
                                     },
                                     .cancel(Text("Cancel"))
