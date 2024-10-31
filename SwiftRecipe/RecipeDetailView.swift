@@ -76,6 +76,7 @@ struct RecipeDetailView: View {
                         }
                     }
                     
+                    Spacer()
                     Image(systemName: "heart.fill")
                         .resizable()
                         .frame(width: 20, height: 20)

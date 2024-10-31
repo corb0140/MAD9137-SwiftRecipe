@@ -9,16 +9,17 @@ import SwiftUI
 
 struct ListOfRecipes: View {
     @EnvironmentObject var recipes: RecipeList
-    @State private var filterByName: String = ""
+    @State private var filterByCategory: String = "All"
     @State private var showAddRecipeView: Bool = false
     @State private var placeHolderImage: String = "https://archive.org/download/placeholder-image/placeholder-image.jpg"
+    @State private var likedRecipes: Set<String> = []
     
     var filteredRecipes: [Recipe] {
-        if filterByName.isEmpty {
+        if filterByCategory == "All" {
             return recipes.recipesArray
         } else {
             return recipes.recipesArray
-                .filter { $0.Title.localizedStandardContains(filterByName) }
+                .filter { $0.Category == filterByCategory }
         }
     }
     
@@ -35,54 +36,105 @@ struct ListOfRecipes: View {
                     HStack(spacing: 20) {
                         Spacer()
                         
-                        VStack {
-                            Image("icons8-smoothie-64")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .clipped()
-                            
-                            Text("All")
+                        Button(action: {
+                            filterByCategory = "All"
+                        }) {
+                            VStack {
+                                VStack {
+                                    Image("icons8-smoothie-64")
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
+                                        .clipped()
+                                }
+                                .frame(width: 35, height: 35)
+                                .background(Color.white)
+                                .cornerRadius(100)
+                                .shadow(radius: 5)
+                                
+                                Text("All")
+                            }
                         }
                         
-                        VStack {
-                            Image("icons8-leaves-48")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .clipped()
-                            
-                            Text("Vegan")
+                        Button(action: {
+                            filterByCategory = "Vegan"
+                        }) {
+                            VStack {
+                                VStack {
+                                    Image("icons8-leaves-48")
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
+                                        .clipped()
+                                }
+                                .frame(width: 35, height: 35)
+                                .background(Color.white)
+                                .cornerRadius(100)
+                                .shadow(radius: 5)
+                                
+                                Text("Vegan")
+                            }
                         }
                         
-                        VStack {
-                            Image("icons8-protein-48")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .clipped()
-                            
-                            Text("Protein")
+                        Button(action: {
+                            filterByCategory = "Protein"
+                        }) {
+                            VStack {
+                                VStack {
+                                    Image("icons8-protein-48")
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
+                                        .clipped()
+                                }
+                                .frame(width: 35, height: 35)
+                                .background(Color.white)
+                                .cornerRadius(100)
+                                .shadow(radius: 5)
+                                
+                                Text("Protein")
+                            }
                         }
                         
-                        VStack {
-                            Image("icons8-leaf-48")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .clipped()
-                            
-                            Text("Green")
+                        Button(action: {
+                            filterByCategory = "Green"
+                        }) {
+                            VStack {
+                                VStack {
+                                    Image("icons8-leaf-48")
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
+                                        .clipped()
+                                }
+                                .frame(width: 35, height: 35)
+                                .background(Color.white)
+                                .cornerRadius(100)
+                                .shadow(radius: 5)
+                                
+                                Text("Green")
+                            }
                         }
                         
-                        VStack {
-                            Image("icons8-energy-48")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .clipped()
-                            
-                            Text("Energy")
+                        Button(action: {
+                            filterByCategory = "Energy"
+                        }) {
+                            VStack {
+                                VStack {
+                                    Image("icons8-energy-48")
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
+                                        .clipped()
+                                }
+                                .frame(width: 35, height: 35)
+                                .background(Color.white)
+                                .cornerRadius(100)
+                                .shadow(radius: 5)
+                                
+                                Text("Energy")
+                            }
                         }
                         
                         Spacer()
                     }
-                    .padding()
+                    .padding(.horizontal, 5)
+                    .padding(.vertical, 20)
                     
                     ScrollView {
                         // grid List
@@ -115,7 +167,7 @@ struct ListOfRecipes: View {
                                                 ) {
                                                     image in
                                                     image.resizable()
-                                                        .frame(width: .infinity, height: 100)
+                                                        .frame(width: .infinity, height: 150, alignment: .topLeading)
                                                         .clipped()
                                                 } placeholder: {
                                                     ProgressView()
@@ -164,8 +216,16 @@ struct ListOfRecipes: View {
                                                 
                                                 Spacer()
                                                 
-                                                Image(systemName: "heart.fill")
-                                                    .foregroundColor(.pink)
+                                                Button(action: {
+                                                    if likedRecipes.contains(recipe.Title) {
+                                                        likedRecipes.remove(recipe.Title)
+                                                    } else {
+                                                        likedRecipes.insert(recipe.Title)
+                                                    }
+                                                }) {
+                                                    Image(systemName: likedRecipes.contains(recipe.Title) ? "heart.fill" : "heart")
+                                                        .foregroundColor(.pink)
+                                                }
                                             }
                                             .padding(10)
                                         }
