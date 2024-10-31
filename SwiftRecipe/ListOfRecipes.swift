@@ -50,7 +50,7 @@ struct ListOfRecipes: View {
                                         .clipped()
                                 }
                                 .frame(width: 35, height: 35)
-                                .background(Color.white)
+                                .background(filterByCategory == "All" ? Color.pink : Color.white)
                                 .cornerRadius(100)
                                 .shadow(radius: 5)
                                 
@@ -70,7 +70,7 @@ struct ListOfRecipes: View {
                                         .clipped()
                                 }
                                 .frame(width: 35, height: 35)
-                                .background(Color.white)
+                                .background(filterByCategory == "Vegan" ? Color.pink : Color.white)
                                 .cornerRadius(100)
                                 .shadow(radius: 5)
                                 
@@ -90,7 +90,7 @@ struct ListOfRecipes: View {
                                         .clipped()
                                 }
                                 .frame(width: 35, height: 35)
-                                .background(Color.white)
+                                .background(filterByCategory == "Protein" ? Color.pink : Color.white)
                                 .cornerRadius(100)
                                 .shadow(radius: 5)
                                 
@@ -110,7 +110,7 @@ struct ListOfRecipes: View {
                                         .clipped()
                                 }
                                 .frame(width: 35, height: 35)
-                                .background(Color.white)
+                                .background(filterByCategory == "Green" ? Color.pink : Color.white)
                                 .cornerRadius(100)
                                 .shadow(radius: 5)
                                 
@@ -130,7 +130,7 @@ struct ListOfRecipes: View {
                                         .clipped()
                                 }
                                 .frame(width: 35, height: 35)
-                                .background(Color.white)
+                                .background(filterByCategory == "Energy" ? Color.pink : Color.white)
                                 .cornerRadius(100)
                                 .shadow(radius: 5)
                                 
