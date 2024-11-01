@@ -11,7 +11,6 @@ struct ListOfRecipes: View {
     @EnvironmentObject var recipes: RecipeList
     @State private var filterByCategory: String = "All"
     @State private var showAddRecipeView: Bool = false
-    @State private var placeHolderImage: String = "https://archive.org/download/placeholder-image/placeholder-image.jpg"
     @State private var likedRecipes: Set<String> = []
     @State private var showDetailView: Bool = false
     
@@ -171,24 +170,19 @@ struct ListOfRecipes: View {
                                         ZStack {
                                             // Image
                                             if !recipe.Image.isEmpty {
-                                                AsyncImage(url: URL(string: recipe.Image)) {
+                                                AsyncImage(url: URL(string: "\(recipe.Image)?timestamp=\(Date().timeIntervalSince1970)")) {
                                                     image in
                                                     image.resizable()
                                                         .frame(width: .infinity, height: 150, alignment: .topLeading)
                                                         .clipped()
-                                                    
                                                 } placeholder: {
                                                     ProgressView()
                                                 }
                                             } else {
-                                                AsyncImage(url: URL(string: placeHolderImage)) {
-                                                    image in
-                                                    image.resizable()
-                                                        .frame(width: .infinity, height: 150, alignment: .topLeading)
-                                                        .clipped()
-                                                } placeholder: {
-                                                    ProgressView()
-                                                }
+                                                Image("placeholder-image")
+                                                    .resizable()
+                                                    .frame(width: .infinity, height: 150, alignment: .topLeading)
+                                                    .clipped()
                                             }
                                             
                                             // Recipe Icon

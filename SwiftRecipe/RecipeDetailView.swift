@@ -15,7 +15,6 @@ struct RecipeDetailView: View {
     @State private var showEditView: Bool = false
     @State private var showActionSheet: Bool = false
     @State private var selected: Int = 0
-    @State private var placeHolderImage: String = "https://archive.org/download/placeholder-image/placeholder-image.jpg"
     
     var delete: (Recipe) -> Void
     
@@ -39,16 +38,10 @@ struct RecipeDetailView: View {
                         ProgressView()
                     }
                 } else {
-                    AsyncImage(
-                        url: URL(string: placeHolderImage)
-                    ) {
-                        image in
-                        image.resizable()
-                            .frame(width: .infinity, height: 450)
-                            .clipped()
-                    } placeholder: {
-                        ProgressView()
-                    }
+                    Image("placeholder-image")
+                        .resizable()
+                        .frame(width: .infinity, height: 450)
+                        .clipped()
                 }
                 
                 Spacer()

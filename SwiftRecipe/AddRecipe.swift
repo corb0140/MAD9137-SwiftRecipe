@@ -21,7 +21,7 @@ struct AddRecipe: View {
     @State private var ingredients: [String] = []
     @State private var step: String = ""
     @State private var steps: [String] = []
-    @State private var imageUrl: String = ""
+    @State private var imageUrl: String = "https://www.thespruceeats.com/thmb/sFNQ8AqRurVo28e4Xosj9bTdMyY=/425x300/filters:max_bytes(150000):strip_icc():format(webp)/strawberry-breakfast-smoothie-recipe-2097149-hero-02-5c1d4b2a46e0fb00014bf2ec.jpg"
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
