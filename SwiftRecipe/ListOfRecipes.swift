@@ -174,7 +174,7 @@ struct ListOfRecipes: View {
                                                 AsyncImage(url: URL(string: recipe.Image)) {
                                                     image in
                                                     image.resizable()
-                                                        .frame(maxWidth: .infinity, maxHeight: 150, alignment: .topLeading)
+                                                        .frame(width: .infinity, height: 150, alignment: .topLeading)
                                                         .clipped()
                                                     
                                                 } placeholder: {
@@ -184,7 +184,7 @@ struct ListOfRecipes: View {
                                                 AsyncImage(url: URL(string: placeHolderImage)) {
                                                     image in
                                                     image.resizable()
-                                                        .frame(maxWidth: .infinity, maxHeight: 150, alignment: .topLeading)
+                                                        .frame(width: .infinity, height: 150, alignment: .topLeading)
                                                         .clipped()
                                                 } placeholder: {
                                                     ProgressView()
@@ -201,7 +201,7 @@ struct ListOfRecipes: View {
                                             .frame(width: 30, height: 30)
                                             .background(Color.white)
                                             .cornerRadius(100)
-                                            .position(x: 25, y: 40)
+                                            .position(x: 25, y: 30)
                                         }
                                         
                                         // Recipe card info VStack
@@ -221,11 +221,9 @@ struct ListOfRecipes: View {
                                                         .fontWeight(.bold)
                                                         .multilineTextAlignment(.leading)
                                                 }
-                                                .frame(height: 70)
+                                                .frame(height: 50)
                                             }
                                             .padding(.horizontal, 6)
-                                            
-                                            Spacer()
                                             
                                             // Time and like button HStack
                                             HStack {
@@ -253,12 +251,12 @@ struct ListOfRecipes: View {
                                                 }
                                             }
                                             .padding(10)
+                                            
+                                            Spacer()
                                         }
                                         .padding(2)
-                                        
-                                        Spacer()
                                     }
-                                    .frame(height: 280)
+                                    .frame(minHeight: 280)
                                     .background(Color.white)
                                     .cornerRadius(10)
                                 }
