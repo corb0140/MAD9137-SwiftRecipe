@@ -214,13 +214,16 @@ struct ListOfRecipes: View {
                                                     .fontWeight(.semibold)
                                                 
                                                 // Title
-                                                Text(recipe.Title)
-                                                    .font(.system(size: 15))
-                                                    .foregroundColor(.blue)
-                                                    .fontWeight(.bold)
+                                                VStack(alignment: .leading) {
+                                                    Text(recipe.Title)
+                                                        .font(.system(size: 15))
+                                                        .foregroundColor(.blue)
+                                                        .fontWeight(.bold)
+                                                        .multilineTextAlignment(.leading)
+                                                }
+                                                .frame(height: 70)
                                             }
-                                            .padding(2)
-                                            .frame(height: 70)
+                                            .padding(.horizontal, 6)
                                             
                                             Spacer()
                                             
